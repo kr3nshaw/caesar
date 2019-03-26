@@ -1,0 +1,176 @@
+configurations {
+    Toolset {
+        key: "PlatformToolset";
+        choices: { v140, v140_xp };
+    };
+
+    Configuration {
+        key: "Configuration";
+        choices: { Release, Debug };
+    };
+
+    RuntimeLibrary {
+        key: "RuntimeLibrary";
+        choices: { MultiThreaded, MultiThreadedDebug, MultiThreadedDLL, MultiThreadedDebugDLL };
+    };
+}
+
+nuget {
+    nuspec {
+        id = sf2cute;
+        version: 0.1.0.3;
+        title: SF2cute C++ SoundFont Libary;
+        authors: { gocha };
+        owners: { gocha };
+        licenseUrl: "https://github.com/gocha/sf2cute/blob/master/LICENSE";
+        projectUrl: "https://github.com/gocha/sf2cute";
+        iconUrl: "https://assets-cdn.github.com/favicon.ico";
+        requireLicenseAcceptance: false;
+        summary: Modern C++ library for SoundFont 2;
+        description: @"SF2cute is a Modern C++ library for writing SoundFont 2.
+
+This package bundles the static libraries for Visual Studio 2015.";
+        releaseNotes: "First public beta release.";  
+        copyright: Copyright 2016 (c) gocha;
+        tags: { C++, sf2cute, soundfont, native, CoApp, nativepackage }; 
+    };
+
+    files {
+        include: { include\* };
+
+        nestedInclude: {
+            #destination = ${d_include}sf2cute;
+            include\sf2cute\*
+        };
+
+        docs: { doc\**\* };
+
+        [v140, Win32, static, MultiThreadedDebug] {
+            lib: { build\lib\v140\Win32\static\MultiThreadedDebug\sf2cute.lib };
+            symbols_: {
+                #destination = ${d_lib};
+                build\lib\v140\Win32\static\MultiThreadedDebug\sf2cute.pdb
+            };
+        }
+
+        [v140, Win32, static, MultiThreadedDebugDLL] {
+            lib: { build\lib\v140\Win32\static\MultiThreadedDebugDLL\sf2cute.lib };
+            symbols_: {
+                #destination = ${d_lib};
+                build\lib\v140\Win32\static\MultiThreadedDebugDLL\sf2cute.pdb
+            };
+        }
+
+        [v140, Win32, static, MultiThreaded] {
+            lib: { build\lib\v140\Win32\static\MultiThreaded\sf2cute.lib };
+        }
+
+        [v140, Win32, static, MultiThreadedDLL] {
+            lib: { build\lib\v140\Win32\static\MultiThreadedDLL\sf2cute.lib };
+        }
+
+        [v140, Win32, ltcg, MultiThreaded] {
+            lib: { build\lib\v140\Win32\ltcg\MultiThreaded\sf2cute.lib };
+        }
+
+        [v140, Win32, ltcg, MultiThreadedDLL] {
+            lib: { build\lib\v140\Win32\ltcg\MultiThreadedDLL\sf2cute.lib };
+        }
+
+        [v140, x64, static, MultiThreadedDebug] {
+            lib: { build\lib\v140\x64\static\MultiThreadedDebug\sf2cute.lib };
+            symbols_: {
+                #destination = ${d_lib};
+                build\lib\v140\x64\static\MultiThreadedDebug\sf2cute.pdb
+            };
+        }
+
+        [v140, x64, static, MultiThreadedDebugDLL] {
+            lib: { build\lib\v140\x64\static\MultiThreadedDebugDLL\sf2cute.lib };
+            symbols_: {
+                #destination = ${d_lib};
+                build\lib\v140\x64\static\MultiThreadedDebugDLL\sf2cute.pdb
+            };
+        }
+
+        [v140, x64, static, MultiThreaded] {
+            lib: { build\lib\v140\x64\static\MultiThreaded\sf2cute.lib };
+        }
+
+        [v140, x64, static, MultiThreadedDLL] {
+            lib: { build\lib\v140\x64\static\MultiThreadedDLL\sf2cute.lib };
+        }
+
+        [v140, x64, ltcg, MultiThreaded] {
+            lib: { build\lib\v140\x64\ltcg\MultiThreaded\sf2cute.lib };
+        }
+
+        [v140, x64, ltcg, MultiThreadedDLL] {
+            lib: { build\lib\v140\x64\ltcg\MultiThreadedDLL\sf2cute.lib };
+        }
+
+        [v140_xp, Win32, static, MultiThreadedDebug] {
+            lib: { build\lib\v140_xp\Win32\static\MultiThreadedDebug\sf2cute.lib };
+            symbols_: {
+                #destination = ${d_lib};
+                build\lib\v140_xp\Win32\static\MultiThreadedDebug\sf2cute.pdb
+            };
+        }
+
+        [v140_xp, Win32, static, MultiThreadedDebugDLL] {
+            lib: { build\lib\v140_xp\Win32\static\MultiThreadedDebugDLL\sf2cute.lib };
+            symbols_: {
+                #destination = ${d_lib};
+                build\lib\v140_xp\Win32\static\MultiThreadedDebugDLL\sf2cute.pdb
+            };
+        }
+
+        [v140_xp, Win32, static, MultiThreaded] {
+            lib: { build\lib\v140_xp\Win32\static\MultiThreaded\sf2cute.lib };
+        }
+
+        [v140_xp, Win32, static, MultiThreadedDLL] {
+            lib: { build\lib\v140_xp\Win32\static\MultiThreadedDLL\sf2cute.lib };
+        }
+
+        [v140_xp, Win32, ltcg, MultiThreaded] {
+            lib: { build\lib\v140_xp\Win32\ltcg\MultiThreaded\sf2cute.lib };
+        }
+
+        [v140_xp, Win32, ltcg, MultiThreadedDLL] {
+            lib: { build\lib\v140_xp\Win32\ltcg\MultiThreadedDLL\sf2cute.lib };
+        }
+
+        [v140_xp, x64, static, MultiThreadedDebug] {
+            lib: { build\lib\v140_xp\x64\static\MultiThreadedDebug\sf2cute.lib };
+            symbols_: {
+                #destination = ${d_lib};
+                build\lib\v140_xp\x64\static\MultiThreadedDebug\sf2cute.pdb
+            };
+        }
+
+        [v140_xp, x64, static, MultiThreadedDebugDLL] {
+            lib: { build\lib\v140_xp\x64\static\MultiThreadedDebugDLL\sf2cute.lib };
+            symbols_: {
+                #destination = ${d_lib};
+                build\lib\v140_xp\x64\static\MultiThreadedDebugDLL\sf2cute.pdb
+            };
+        }
+
+        [v140_xp, x64, static, MultiThreaded] {
+            lib: { build\lib\v140_xp\x64\static\MultiThreaded\sf2cute.lib };
+        }
+
+        [v140_xp, x64, static, MultiThreadedDLL] {
+            lib: { build\lib\v140_xp\x64\static\MultiThreadedDLL\sf2cute.lib };
+        }
+
+        [v140_xp, x64, ltcg, MultiThreaded] {
+            lib: { build\lib\v140_xp\x64\ltcg\MultiThreaded\sf2cute.lib };
+        }
+
+        [v140_xp, x64, ltcg, MultiThreadedDLL] {
+            lib: { build\lib\v140_xp\x64\ltcg\MultiThreadedDLL\sf2cute.lib };
+        }
+    };
+}
