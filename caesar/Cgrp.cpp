@@ -103,7 +103,11 @@ bool Cgrp::Extract()
 				break;
 
 			default:
+			{
+				// TODO (Low): Add error message
+
 				return false;
+			}
 		}
 	}
 
@@ -263,7 +267,11 @@ bool Cgrp::Extract()
 			}
 
 			default:
+			{
+				// TODO (Low): Add error message
+
 				return false;
+			}
 		}
 	}
 

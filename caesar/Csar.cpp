@@ -161,6 +161,8 @@ bool Csar::Extract()
 				infoEndOffset = ReadFixLen(pos, 4); break;
 
 			default:
+				// TODO (Low): Add error message
+
 				return false;
 		}
 	}
@@ -218,6 +220,8 @@ bool Csar::Extract()
 				break;
 
 			default:
+				// TODO (Low): Add error message
+
 				return false;
 		}
 
@@ -421,6 +425,8 @@ bool Csar::Extract()
 			}
 
 			default:
+				// TODO (Low): Add error message
+
 				return false;
 		}
 	}

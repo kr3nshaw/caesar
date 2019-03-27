@@ -212,7 +212,11 @@ bool Cwav::Convert()
 			}
 
 			default:
+			{
+				// TODO (Low): Add error message
+
 				return false;
+			}
 		}
 	}
 

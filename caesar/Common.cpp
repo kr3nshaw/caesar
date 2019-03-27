@@ -8,20 +8,17 @@
 
 #include "Common.hpp"
 #include <cstdint>
-#include <iomanip>
-#include <ios>
+#include <fstream>
 #include <iostream>
-#include <iterator>
-#include <map>
 #include <stack>
 #include <string>
-#include <utility>
+#include <vector>
 
 using namespace std;
 
 stack<string> Common::FileNames;
 stack<uint8_t*> Common::Offsets;
-multimap<string, uint32_t> Common::Results;
+vector<string> Common::Log;
 
 int32_t ReadFixLen(uint8_t* &pos, size_t bytes, bool littleEndian, bool isSigned)
 {
@@ -68,15 +65,18 @@ void Common::Pop()
 
 void Common::Analyse(string tag, uint32_t val)
 {
-	Common::Results.insert(pair<string, uint32_t>(tag, val));
+	Common::Log.push_back(FileNames.top() + "," + tag + "," + to_string(val));
 }
 
 void Common::Dump()
 {
-	// TODO (Medium): This doesn't actually work
-	for (auto i = Common::Results.begin(), end = Common::Results.end(); i != end; i = Common::Results.upper_bound(i->first))
+	ofstream ofs("caesar.log");
+	ofs << "fileName,tag,val" << endl;
+
+	for (size_t i = 0; i < Common::Log.size(); ++i)
 	{
-		cout << hex << setfill('0') << uppercase << endl;
-		cout << i->first << "\t" << setw(2) << i->second << endl;
+		ofs << Common::Log[i] << endl;
 	}
+
+	ofs.close();
 }
