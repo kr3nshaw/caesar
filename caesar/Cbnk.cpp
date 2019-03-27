@@ -404,7 +404,17 @@ bool Cbnk::Convert(string cwarPath)
 				Common::Analyse("Note 0x6001 0x1C", ReadFixLen(pos, 4));
 			}
 
-			insts[i].Notes[j].Cwav = &cwavs[ReadFixLen(pos, 4)];
+			uint32_t cwav = ReadFixLen(pos, 4);
+
+			if (cwav < cwavs.size())
+			{
+				insts[i].Notes[j].Cwav = &cwavs[cwav];
+			}
+			else
+			{
+				// TODO (Medium): This is a hack to fix Super Robot Taisen UX/SRW_SOUND.bcsar/BANK_44.cbnk
+				insts[i].Notes[j].Cwav = &cwavs[0];
+			}
 
 			Common::Analyse("Note 0x14", ReadFixLen(pos, 4));
 
