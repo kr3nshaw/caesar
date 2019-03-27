@@ -13,9 +13,9 @@
 #include <iomanip>
 #include <ios>
 #include <iostream>
-#include <map>
 #include <stack>
 #include <string>
+#include <vector>
 
 int32_t ReadFixLen(uint8_t* &pos, size_t bytes, bool littleEndian = true, bool isSigned = false);
 int32_t ReadVarLen(uint8_t* &pos);
@@ -24,7 +24,7 @@ typedef struct Common
 {
 	static std::stack<std::string> FileNames;
 	static std::stack<uint8_t*> Offsets;
-	static std::multimap<std::string, uint32_t> Results;
+	static std::vector<std::string> Log;
 
 	template<typename T>
 	static bool Assert(uint8_t* pos, T expected, T found)

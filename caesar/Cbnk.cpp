@@ -367,8 +367,12 @@ bool Cbnk::Convert(string cwarPath)
 				break;
 			}
 
-		default:
-			return false;
+			default:
+			{
+				// TODO (Low): Add error message
+
+				return false;
+			}
 		}
 
 		for (uint32_t j = 0; j < insts[i].NoteCount; ++j)
