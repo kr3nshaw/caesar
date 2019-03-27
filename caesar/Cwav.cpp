@@ -105,8 +105,22 @@ bool Cwav::Convert()
 
 		switch (codec)
 		{
+			case 0:
+			{
+				pos = chans[i].SampOffset;
+
+				for (uint32_t j = 0; j < loopEnd; ++j)
+				{
+					chans[i].PcmSamples.push_back(ReadFixLen(pos, 1) << 8);
+				}
+
+				break;
+			}
+
 			case 1:
 			{
+				pos = chans[i].SampOffset;
+
 				for (uint32_t j = 0; j < loopEnd; ++j)
 				{
 					chans[i].PcmSamples.push_back(ReadFixLen(pos, 2, true, true));
@@ -186,6 +200,13 @@ bool Cwav::Convert()
 						hist1 = chans[i].PcmSamples.back();
 					}
 				}
+
+				break;
+			}
+
+			case 3:
+			{
+				// TODO (Medium): Implement IMA ADPCM
 
 				break;
 			}
