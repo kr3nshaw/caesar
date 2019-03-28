@@ -369,7 +369,7 @@ bool Cbnk::Convert(string cwarPath)
 
 			default:
 			{
-				// TODO (Low): Add error message
+				Common::Error(pos - 8, "A valid instrument type", instType);
 
 				return false;
 			}

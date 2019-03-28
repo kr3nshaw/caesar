@@ -44,10 +44,20 @@ typedef struct Common
 		return true;
 	}
 
+	template<typename T>
+	static void Error(uint8_t* pos, std::string expected, T found)
+	{
+		std::cerr << std::hex << std::setfill('0') << std::uppercase << std::endl;
+		std::cerr << "ERROR IN\t" << Common::FileNames.top() << std::endl;
+		std::cerr << "AT POSITION\t0x" << std::setw(8) << pos - Common::Offsets.top() << std::endl;
+		std::cerr << "EXPECTED\t" << expected << std::endl;
+		std::cerr << "INSTEAD GOT\t0x" << std::setw(8) << found << std::endl;
+	}
+
 	static void Push(std::string fileName, uint8_t* data);
 	static void Pop();
 	static void Analyse(std::string tag, uint32_t val);
-	static void Dump();
+	static void Dump(std::string fileName);
 } Common;
 
 #endif /* common_hpp */
