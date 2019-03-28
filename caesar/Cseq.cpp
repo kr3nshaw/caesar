@@ -263,7 +263,7 @@ bool Cseq::Convert()
 
 					if (cmd.Args.back() > 2)
 					{
-						// TODO (Low): Add error message
+						Common::Error(pos - 1, "A valid modulation type", cmd.Args.back());
 
 						return false;
 					}
@@ -332,7 +332,7 @@ bool Cseq::Convert()
 
 				if (cmd.Args.back() > 2)
 				{
-					// TODO (Low): Add error message
+					Common::Error(pos - 1, "A valid modulation type", cmd.Args.back());
 
 					return false;
 				}
@@ -343,7 +343,7 @@ bool Cseq::Convert()
 
 				if (cmd.Args.back() > 2)
 				{
-					// TODO (Low): Add error message
+					Common::Error(pos - 1, "A valid modulation type", cmd.Args.back());
 
 					return false;
 				}
@@ -354,7 +354,7 @@ bool Cseq::Convert()
 
 				if (cmd.Args.back() > 2)
 				{
-					// TODO (Low): Add error message
+					Common::Error(pos - 1, "A valid modulation type", cmd.Args.back());
 
 					return false;
 				}
@@ -394,7 +394,7 @@ bool Cseq::Convert()
 			}
 			else
 			{
-				// TODO (Low): Add error message
+				Common::Error(pos - 1, "A valid extended command", statusByte);
 
 				return false;
 			}
@@ -409,7 +409,7 @@ bool Cseq::Convert()
 		}
 		else
 		{
-			// TODO (Low): Add error message
+		Common::Error(pos - 1, "A valid command", statusByte);
 
 			return false;
 		}

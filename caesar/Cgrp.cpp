@@ -82,7 +82,9 @@ bool Cgrp::Extract()
 
 	for (uint32_t i = 0; i < chunkCount; ++i)
 	{
-		switch (ReadFixLen(pos, 4))
+		uint32_t chunkId = ReadFixLen(pos, 4);
+
+		switch (chunkId)
 		{
 			case 0x7800:
 				infoOffset = ReadFixLen(pos, 4);
@@ -104,7 +106,7 @@ bool Cgrp::Extract()
 
 			default:
 			{
-				// TODO (Low): Add error message
+				Common::Error(pos - 4, "A valid chunk type", chunkId);
 
 				return false;
 			}
@@ -149,7 +151,9 @@ bool Cgrp::Extract()
 
 		pos = files[i].Offset;
 
-		switch (ReadFixLen(pos, 4, false))
+		uint32_t fileId = ReadFixLen(pos, 4, false);
+
+		switch (fileId)
 		{
 			// TODO (High): The CWARs have IDs, because they're referenced in the CBNKs...where do these IDs come from?
 			case 0x43574152:
@@ -268,7 +272,7 @@ bool Cgrp::Extract()
 
 			default:
 			{
-				// TODO (Low): Add error message
+				Common::Error(pos - 4, "A valid file type", fileId);
 
 				return false;
 			}

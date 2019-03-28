@@ -213,7 +213,7 @@ bool Cwav::Convert()
 
 			default:
 			{
-				// TODO (Low): Add error message
+				Common::Error(Data + infoOffset + 8, "A valid codec identifier", codec);
 
 				return false;
 			}

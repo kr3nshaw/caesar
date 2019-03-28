@@ -60,6 +60,14 @@ Csar::~Csar()
 
 bool Csar::Extract()
 {
+#ifdef _WIN32
+	_mkdir(FileName.substr(0, FileName.length() - 6).c_str());
+	_chdir(FileName.substr(0, FileName.length() - 6).c_str());
+#else
+	mkdir(FileName.substr(0, FileName.length() - 6).c_str(), S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
+	chdir(FileName.substr(0, FileName.length() - 6).c_str());
+#endif
+
 	uint8_t* pos = Data;
 
 	if (!Common::Assert(pos, 0x43534152, ReadFixLen(pos, 4, false))) { return false; }
@@ -134,7 +142,9 @@ bool Csar::Extract()
 
 	for (uint8_t i = 0; i < 8; ++i)
 	{
-		switch (ReadFixLen(pos, 4))
+		uint32_t offsetId = ReadFixLen(pos, 4);
+
+		switch (offsetId)
 		{
 			case 0x2100:
 				infoCseqOffset = ReadFixLen(pos, 4); break;
@@ -161,7 +171,7 @@ bool Csar::Extract()
 				infoEndOffset = ReadFixLen(pos, 4); break;
 
 			default:
-				// TODO (Low): Add error message
+				Common::Error(pos - 4, "A valid chunk type", offsetId);
 
 				return false;
 		}
@@ -187,8 +197,9 @@ bool Csar::Extract()
 		pos = fileOffsets[i];
 
 		CsarFile file;
+		uint32_t fileId = ReadFixLen(pos, 4);
 
-		switch (ReadFixLen(pos, 4))
+		switch (fileId)
 		{
 			case 0x220C:
 			{
@@ -220,7 +231,7 @@ bool Csar::Extract()
 				break;
 
 			default:
-				// TODO (Low): Add error message
+				Common::Error(pos - 4, "A valid file type", fileId);
 
 				return false;
 		}
@@ -425,7 +436,7 @@ bool Csar::Extract()
 			}
 
 			default:
-				// TODO (Low): Add error message
+				Common::Error(pos - 16, "A valid music type", type);
 
 				return false;
 		}
@@ -518,7 +529,7 @@ bool Csar::Extract()
 #endif
 	}
 
-	Common::Dump();
+	Common::Dump(FileName.substr(0, FileName.length() - 5).append("log"));
 
 	return true;
 }

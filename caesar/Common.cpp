@@ -68,9 +68,9 @@ void Common::Analyse(string tag, uint32_t val)
 	Common::Log.push_back(FileNames.top() + "," + tag + "," + to_string(val));
 }
 
-void Common::Dump()
+void Common::Dump(string fileName)
 {
-	ofstream ofs("caesar.log");
+	ofstream ofs(fileName);
 	ofs << "fileName,tag,val" << endl;
 
 	for (size_t i = 0; i < Common::Log.size(); ++i)
