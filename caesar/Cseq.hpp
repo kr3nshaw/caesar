@@ -1,11 +1,3 @@
-//
-//  Cseq.hpp
-//  caesar
-//
-//  Created by Kai Renshaw on 28/5/18.
-//  Copyright © 2018 Kai Renshaw. All rights reserved.
-//
-
 #ifndef Cseq_hpp
 #define Cseq_hpp
 

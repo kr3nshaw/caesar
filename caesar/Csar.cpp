@@ -1,11 +1,3 @@
-//
-//  Csar.cpp
-//  caesar
-//
-//  Created by Kai Renshaw on 6/6/18.
-//  Copyright © 2018 Kai Renshaw. All rights reserved.
-//
-
 #include "Csar.hpp"
 #include "Cbnk.hpp"
 #include "Cgrp.hpp"

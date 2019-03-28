@@ -1,11 +1,3 @@
-//
-//  Cwar.cpp
-//  caesar
-//
-//  Created by Kai Renshaw on 7/6/18.
-//  Copyright © 2018 Kai Renshaw. All rights reserved.
-//
-
 #include "Cwar.hpp"
 #include "Common.hpp"
 #include "Cwav.hpp"

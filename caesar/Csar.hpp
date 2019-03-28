@@ -1,11 +1,3 @@
-//
-//  Csar.hpp
-//  caesar
-//
-//  Created by Kai Renshaw on 6/6/18.
-//  Copyright © 2018 Kai Renshaw. All rights reserved.
-//
-
 #ifndef Csar_hpp
 #define Csar_hpp
 

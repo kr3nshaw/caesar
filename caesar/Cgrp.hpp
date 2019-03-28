@@ -1,11 +1,3 @@
-//
-//  Cgrp.hpp
-//  caesar
-//
-//  Created by Kai Renshaw on 24/6/18.
-//  Copyright © 2018 Kai Renshaw. All rights reserved.
-//
-
 #ifndef Cgrp_hpp
 #define Cgrp_hpp
 

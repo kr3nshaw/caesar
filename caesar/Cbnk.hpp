@@ -1,11 +1,3 @@
-//
-//  Cbnk.hpp
-//  caesar
-//
-//  Created by Kai Renshaw on 7/6/18.
-//  Copyright © 2018 Kai Renshaw. All rights reserved.
-//
-
 #ifndef Cbnk_hpp
 #define Cbnk_hpp
 
