@@ -1,11 +1,3 @@
-//
-//  Cwav.cpp
-//  caesar
-//
-//  Created by Kai Renshaw on 7/6/18.
-//  Copyright © 2018 Kai Renshaw. All rights reserved.
-//
-
 #include "Cwav.hpp"
 #include "Common.hpp"
 #include <algorithm>

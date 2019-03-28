@@ -1,11 +1,3 @@
-//
-//  Cwav.hpp
-//  caesar
-//
-//  Created by Kai Renshaw on 7/6/18.
-//  Copyright © 2018 Kai Renshaw. All rights reserved.
-//
-
 #ifndef Cwav_hpp
 #define Cwav_hpp
 

@@ -1,11 +1,3 @@
-//
-//  Common.cpp
-//  caesar
-//
-//  Created by Kai Renshaw on 28/5/18.
-//  Copyright © 2018 Kai Renshaw. All rights reserved.
-//
-
 #include "Common.hpp"
 #include <cstdint>
 #include <fstream>
