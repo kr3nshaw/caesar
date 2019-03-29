@@ -387,8 +387,18 @@ bool Csar::Extract()
 		{
 			// TODO (Medium): Implement ability to read external streams and CWSDs
 			case 0x2201:
-			case 0x2202:
+			{
+				Common::Warning(pos - 16, "Skipping external stream");
+
 				break;
+			}
+
+			case 0x2202:
+			{
+				Common::Warning(pos - 16, "Skipping CWSD");
+
+				break;
+			}
 
 			case 0x2203:
 			{

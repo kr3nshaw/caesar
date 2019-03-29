@@ -198,7 +198,7 @@ bool Cwav::Convert()
 
 			case 3:
 			{
-				// TODO (Medium): Implement IMA ADPCM
+				Common::Warning(Data + infoOffset + 8, "IMA ADPCM decoding not implemented");
 
 				break;
 			}

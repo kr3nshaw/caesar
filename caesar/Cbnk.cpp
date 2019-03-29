@@ -409,7 +409,8 @@ bool Cbnk::Convert(string cwarPath)
 			}
 			else
 			{
-				// TODO (Medium): This is a hack to fix Super Robot Taisen UX/SRW_SOUND.bcsar/BANK_44.cbnk
+				Common::Warning(pos - 4, "CWAV " + to_string(cwav) + " does not exist");
+
 				insts[i].Notes[j].Cwav = &cwavs[0];
 			}
 

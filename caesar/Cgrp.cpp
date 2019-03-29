@@ -257,7 +257,7 @@ bool Cgrp::Extract()
 
 			case 0x43575344:
 			{
-				// TODO (Medium): Implement CWSD conversion
+				Common::Warning(pos - 4, "Skipping CWSD");
 
 				break;
 			}
@@ -271,7 +271,12 @@ bool Cgrp::Extract()
 		}
 	}
 
-	// TODO (Medium): Process INFX chunk
+	if (infxOffset)
+	{
+		pos = Data + infxOffset;
+
+		Common::Warning(pos, "Skipping INFX chunk");
+	}
 
 	return true;
 }
