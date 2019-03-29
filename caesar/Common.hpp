@@ -44,8 +44,10 @@ typedef struct Common
 		std::cerr << "AT POSITION\t0x" << std::setw(8) << pos - Common::Offsets.top() << std::endl;
 		std::cerr << "EXPECTED\t" << expected << std::endl;
 		std::cerr << "INSTEAD GOT\t0x" << std::setw(8) << found << std::endl;
+		std::cerr << std::endl;
 	}
 
+	static void Warning(uint8_t* pos, std::string msg);
 	static void Push(std::string fileName, uint8_t* data);
 	static void Pop();
 	static void Analyse(std::string tag, uint32_t val);

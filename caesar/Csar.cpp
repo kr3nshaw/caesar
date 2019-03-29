@@ -6,6 +6,7 @@
 #include "Cwar.hpp"
 #include <cstdint>
 #include <fstream>
+#include <string>
 #include <vector>
 
 #ifdef _WIN32

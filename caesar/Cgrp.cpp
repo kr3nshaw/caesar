@@ -5,6 +5,7 @@
 #include "Cwar.hpp"
 #include <cstdint>
 #include <fstream>
+#include <string>
 #include <vector>
 
 #ifdef _WIN32
@@ -108,8 +109,7 @@ bool Cgrp::Extract()
 	pos = Data + infoOffset;
 
 	if (!Common::Assert(pos, 0x494E464F, ReadFixLen(pos, 4, false))) { return false; }
-	
-	Common::Analyse("Cgrp 0x44", ReadFixLen(pos, 4));
+	if (!Common::Assert<uint32_t>(pos, infoLength, ReadFixLen(pos, 4))) { return false; }
 
 	uint32_t fileCount = ReadFixLen(pos, 4);
 
