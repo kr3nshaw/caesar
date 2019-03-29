@@ -7,6 +7,7 @@
 #include <ios>
 #include <map>
 #include <memory>
+#include <string>
 #include <vector>
 
 using namespace sf2cute;

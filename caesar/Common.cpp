@@ -41,6 +41,15 @@ int32_t ReadVarLen(uint8_t* &pos)
 	return result;
 }
 
+void Common::Warning(uint8_t* pos, string msg)
+{
+	cerr << hex << setfill('0') << uppercase << endl;
+	cerr << "WARNING IN\t" << Common::FileNames.top() << endl;
+	cerr << "AT POSITION\t0x" << setw(8) << pos - Common::Offsets.top() << endl;
+	cerr << "MESSAGE\t" << msg << endl;
+	cerr << endl;
+}
+
 void Common::Push(string fileName, uint8_t* data)
 {
 	FileNames.push(fileName);

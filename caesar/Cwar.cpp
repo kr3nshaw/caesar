@@ -2,6 +2,7 @@
 #include "Common.hpp"
 #include "Cwav.hpp"
 #include <fstream>
+#include <string>
 #include <vector>
 
 using namespace std;
