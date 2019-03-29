@@ -451,7 +451,7 @@ bool Cseq::Convert()
 			}
 			else if (i->second.Cmd == 0x89)
 			{
-				// TODO (Low): Implement jump
+				Common::Warning(Data + dataOffset + 8 + i->first, "jump not implemented");
 			}
 			else if (i->second.Cmd == 0x8A)
 			{
@@ -466,7 +466,7 @@ bool Cseq::Convert()
 			}
 			else if (i->second.Cmd == 0xB1)
 			{
-				// TODO (Low): Implement envelope hold
+				Common::Warning(Data + dataOffset + 8 + i->first, "envelope hold not implemented");
 			}
 			else if (i->second.Cmd == 0xB2)
 			{
@@ -474,31 +474,31 @@ bool Cseq::Convert()
 			}
 			else if (i->second.Cmd == 0xB3)
 			{
-				// TODO (Low): Implement velocity range
+				Common::Warning(Data + dataOffset + 8 + i->first, "velocity range not implemented");
 			}
 			else if (i->second.Cmd == 0xB4)
 			{
-				// TODO (Low): Implement biquad type
+				Common::Warning(Data + dataOffset + 8 + i->first, "biquad type not implemented");
 			}
 			else if (i->second.Cmd == 0xB5)
 			{
-				// TODO (Low): Implement biquad value
+				Common::Warning(Data + dataOffset + 8 + i->first, "biquad value not implemented");
 			}
 			else if (i->second.Cmd == 0xB6)
 			{
-				// TODO (Low): Implement bank select
+				Common::Warning(Data + dataOffset + 8 + i->first, "bank select not implemented");
 			}
 			else if (i->second.Cmd == 0xBD)
 			{
-				// TODO (Low): Implement mod phase
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod phase not implemented");
 			}
 			else if (i->second.Cmd == 0xBE)
 			{
-				// TODO (Low): Implement mod curve
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod curve not implemented");
 			}
 			else if (i->second.Cmd == 0xBF)
 			{
-				// TODO (Low): Implement front bypass
+				Common::Warning(Data + dataOffset + 8 + i->first, "front bypass not implemented");
 			}
 			else if (i->second.Cmd == 0xC0)
 			{
@@ -530,7 +530,7 @@ bool Cseq::Convert()
 			}
 			else if (i->second.Cmd == 0xC6)
 			{
-				// TODO (Low): Implement priority
+				Common::Warning(Data + dataOffset + 8 + i->first, "priority not implemented");
 			}
 			else if (i->second.Cmd == 0xC7)
 			{
@@ -538,7 +538,7 @@ bool Cseq::Convert()
 			}
 			else if (i->second.Cmd == 0xC8)
 			{
-				// TODO (Low): Implement tie
+				Common::Warning(Data + dataOffset + 8 + i->first, "tie not implemented");
 			}
 			else if (i->second.Cmd == 0xC9)
 			{
@@ -554,7 +554,7 @@ bool Cseq::Convert()
 			}
 			else if (i->second.Cmd == 0xCC)
 			{
-				// TODO (Low): Implement mod type
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod type not implemented");
 			}
 			else if (i->second.Cmd == 0xCD)
 			{
@@ -578,7 +578,7 @@ bool Cseq::Convert()
 			}
 			else if (i->second.Cmd == 0xD2)
 			{
-				// TODO (Low): Implement sustain
+				Common::Warning(Data + dataOffset + 8 + i->first, "sustain not implemented");
 			}
 			else if (i->second.Cmd == 0xD3)
 			{
@@ -594,39 +594,39 @@ bool Cseq::Convert()
 			}
 			else if (i->second.Cmd == 0xD6)
 			{
-				// TODO (Low): Implement print var
+				Common::Warning(Data + dataOffset + 8 + i->first, "print var not implemented");
 			}
 			else if (i->second.Cmd == 0xD7)
 			{
-				// TODO (Low): Implement span
+				Common::Warning(Data + dataOffset + 8 + i->first, "span not implemented");
 			}
 			else if (i->second.Cmd == 0xD8)
 			{
-				// TODO (Low): Implement lpf cutoff
+				Common::Warning(Data + dataOffset + 8 + i->first, "lpf cutoff not implemented");
 			}
 			else if (i->second.Cmd == 0xD9)
 			{
-				// TODO (Low): Implement fx send a
+				Common::Warning(Data + dataOffset + 8 + i->first, "fx send a not implemented");
 			}
 			else if (i->second.Cmd == 0xDA)
 			{
-				// TODO (Low): Implement fx send b
+				Common::Warning(Data + dataOffset + 8 + i->first, "fx send b not implemented");
 			}
 			else if (i->second.Cmd == 0xDB)
 			{
-				// TODO (Low): Implement main send
+				Common::Warning(Data + dataOffset + 8 + i->first, "main send not implemented");
 			}
 			else if (i->second.Cmd == 0xDC)
 			{
-				// TODO (Low): Implement init pan
+				Common::Warning(Data + dataOffset + 8 + i->first, "init pan not implemented");
 			}
 			else if (i->second.Cmd == 0xDD)
 			{
-				// TODO (Low): Implement mute
+				Common::Warning(Data + dataOffset + 8 + i->first, "mute not implemented");
 			}
 			else if (i->second.Cmd == 0xDF)
 			{
-				// TODO (Low): Implement damper
+				Common::Warning(Data + dataOffset + 8 + i->first, "damper not implemented");
 			}
 			else if (i->second.Cmd == 0xE0)
 			{
@@ -642,11 +642,11 @@ bool Cseq::Convert()
 			}
 			else if (i->second.Cmd == 0xE4)
 			{
-				// TODO (Low): Implement mod_period
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod_period not implemented");
 			}
 			else if (i->second.Cmd == 0xFB)
 			{
-				// TODO (Low): Implement envelope reset
+				Common::Warning(Data + dataOffset + 8 + i->first, "envelope reset not implemented");
 			}
 			else if (i->second.Cmd == 0xFC)
 			{
@@ -663,7 +663,8 @@ bool Cseq::Convert()
 				}
 				else
 				{
-					// TODO (High): Work out how sequences can return without ever having been called
+					Common::Warning(Data + dataOffset + 8 + i->first, "Sequence attempted to return with empty call stack");
+
 					smfDelete(smf);
 
 					return true;
@@ -707,175 +708,175 @@ bool Cseq::Convert()
 		{
 			if (i->second.Cmd == 0x80)
 			{
-				// TODO (Low): Implement setvar
+				Common::Warning(Data + dataOffset + 8 + i->first, "setvar not implemented");
 			}
 			else if (i->second.Cmd == 0x81)
 			{
-				// TODO (Low): Implement addvar
+				Common::Warning(Data + dataOffset + 8 + i->first, "addvar not implemented");
 			}
 			else if (i->second.Cmd == 0x82)
 			{
-				// TODO (Low): Implement subvar
+				Common::Warning(Data + dataOffset + 8 + i->first, "subvar not implemented");
 			}
 			else if (i->second.Cmd == 0x83)
 			{
-				// TODO (Low): Implement mulvar
+				Common::Warning(Data + dataOffset + 8 + i->first, "mulvar not implemented");
 			}
 			else if (i->second.Cmd == 0x84)
 			{
-				// TODO (Low): Implement divvar
+				Common::Warning(Data + dataOffset + 8 + i->first, "divvar not implemented");
 			}
 			else if (i->second.Cmd == 0x85)
 			{
-				// TODO (Low): Implement shiftvar
+				Common::Warning(Data + dataOffset + 8 + i->first, "shiftvar not implemented");
 			}
 			else if (i->second.Cmd == 0x86)
 			{
-				// TODO (Low): Implement randvar
+				Common::Warning(Data + dataOffset + 8 + i->first, "randvar not implemented");
 			}
 			else if (i->second.Cmd == 0x87)
 			{
-				// TODO (Low): Implement andvar
+				Common::Warning(Data + dataOffset + 8 + i->first, "andvar not implemented");
 			}
 			else if (i->second.Cmd == 0x88)
 			{
-				// TODO (Low): Implement orvar
+				Common::Warning(Data + dataOffset + 8 + i->first, "orvar not implemented");
 			}
 			else if (i->second.Cmd == 0x89)
 			{
-				// TODO (Low): Implement xorvar
+				Common::Warning(Data + dataOffset + 8 + i->first, "xorvar not implemented");
 			}
 			else if (i->second.Cmd == 0x8A)
 			{
-				// TODO (Low): Implement notvar
+				Common::Warning(Data + dataOffset + 8 + i->first, "notvar not implemented");
 			}
 			else if (i->second.Cmd == 0x8B)
 			{
-				// TODO (Low): Implement modvar
+				Common::Warning(Data + dataOffset + 8 + i->first, "modvar not implemented");
 			}
 			else if (i->second.Cmd == 0x90)
 			{
-				// TODO (Low): Implement cmp_eq
+				Common::Warning(Data + dataOffset + 8 + i->first, "cmp_eq not implemented");
 			}
 			else if (i->second.Cmd == 0x91)
 			{
-				// TODO (Low): Implement cmp_ge
+				Common::Warning(Data + dataOffset + 8 + i->first, "cmp_ge not implemented");
 			}
 			else if (i->second.Cmd == 0x92)
 			{
-				// TODO (Low): Implement cmp_gt
+				Common::Warning(Data + dataOffset + 8 + i->first, "cmp_gt not implemented");
 			}
 			else if (i->second.Cmd == 0x93)
 			{
-				// TODO (Low): Implement cmp_le
+				Common::Warning(Data + dataOffset + 8 + i->first, "cmp_le not implemented");
 			}
 			else if (i->second.Cmd == 0x94)
 			{
-				// TODO (Low): Implement cmp_lt
+				Common::Warning(Data + dataOffset + 8 + i->first, "cmp_lt not implemented");
 			}
 			else if (i->second.Cmd == 0x95)
 			{
-				// TODO (Low): Implement cmp_ne
+				Common::Warning(Data + dataOffset + 8 + i->first, "cmp_ne not implemented");
 			}
 			else if (i->second.Cmd == 0xA0)
 			{
-				// TODO (Low): Implement mod2_curve
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod2_curve not implemented");
 			}
 			else if (i->second.Cmd == 0xA1)
 			{
-				// TODO (Low): Implement mod2_phase
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod2_phase not implemented");
 			}
 			else if (i->second.Cmd == 0xA2)
 			{
-				// TODO (Low): Implement mod2_depth
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod2_depth not implemented");
 			}
 			else if (i->second.Cmd == 0xA3)
 			{
-				// TODO (Low): Implement mod2_speed
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod2_speed not implemented");
 			}
 			else if (i->second.Cmd == 0xA4)
 			{
-				// TODO (Low): Implement mod2_type
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod2_type not implemented");
 			}
 			else if (i->second.Cmd == 0xA5)
 			{
-				// TODO (Low): Implement mod2_range
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod2_range not implemented");
 			}
 			else if (i->second.Cmd == 0xA6)
 			{
-				// TODO (Low): Implement mod3_curve
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod3_curve not implemented");
 			}
 			else if (i->second.Cmd == 0xA7)
 			{
-				// TODO (Low): Implement mod3_phase
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod3_phase not implemented");
 			}
 			else if (i->second.Cmd == 0xA8)
 			{
-				// TODO (Low): Implement mod3_depth
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod3_depth not implemented");
 			}
 			else if (i->second.Cmd == 0xA9)
 			{
-				// TODO (Low): Implement mod3_speed
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod3_speed not implemented");
 			}
 			else if (i->second.Cmd == 0xAA)
 			{
-				// TODO (Low): Implement mod3_type
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod3_type not implemented");
 			}
 			else if (i->second.Cmd == 0xAB)
 			{
-				// TODO (Low): Implement mod3_range
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod3_range not implemented");
 			}
 			else if (i->second.Cmd == 0xAC)
 			{
-				// TODO (Low): Implement mod4_range
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod4_range not implemented");
 			}
 			else if (i->second.Cmd == 0xAD)
 			{
-				// TODO (Low): Implement mod4_curve
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod4_curve not implemented");
 			}
 			else if (i->second.Cmd == 0xAE)
 			{
-				// TODO (Low): Implement mod4_phase
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod4_phase not implemented");
 			}
 			else if (i->second.Cmd == 0xAF)
 			{
-				// TODO (Low): Implement mod4_depth
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod4_depth not implemented");
 			}
 			else if (i->second.Cmd == 0xB0)
 			{
-				// TODO (Low): Implement mod4_speed
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod4_speed not implemented");
 			}
 			else if (i->second.Cmd == 0xB1)
 			{
-				// TODO (Low): Implement mod4_type
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod4_type not implemented");
 			}
 			else if (i->second.Cmd == 0xE0)
 			{
-				// TODO (Low): Implement userproc
+				Common::Warning(Data + dataOffset + 8 + i->first, "userproc not implemented");
 			}
 			else if (i->second.Cmd == 0xE1)
 			{
-				// TODO (Low): Implement mod2_delay
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod2_delay not implemented");
 			}
 			else if (i->second.Cmd == 0xE2)
 			{
-				// TODO (Low): Implement mod2_period
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod2_period not implemented");
 			}
 			else if (i->second.Cmd == 0xE3)
 			{
-				// TODO (Low): Implement mod3_delay
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod3_delay not implemented");
 			}
 			else if (i->second.Cmd == 0xE4)
 			{
-				// TODO (Low): Implement mod3_period
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod3_period not implemented");
 			}
 			else if (i->second.Cmd == 0xE5)
 			{
-				// TODO (Low): Implement mod4_delay
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod4_delay not implemented");
 			}
 			else if (i->second.Cmd == 0xE6)
 			{
-				// TODO (Low): Implement mod4_period
+				Common::Warning(Data + dataOffset + 8 + i->first, "mod4_period not implemented");
 			}
 		}
 	}

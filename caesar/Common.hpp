@@ -14,6 +14,7 @@ int32_t ReadVarLen(uint8_t* &pos);
 
 typedef struct Common
 {
+	static bool ShowWarnings;
 	static std::stack<std::string> FileNames;
 	static std::stack<uint8_t*> Offsets;
 	static std::vector<std::string> Log;

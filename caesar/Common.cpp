@@ -8,6 +8,7 @@
 
 using namespace std;
 
+bool Common::ShowWarnings = false;
 stack<string> Common::FileNames;
 stack<uint8_t*> Common::Offsets;
 vector<string> Common::Log;
@@ -43,11 +44,14 @@ int32_t ReadVarLen(uint8_t* &pos)
 
 void Common::Warning(uint8_t* pos, string msg)
 {
-	cerr << hex << setfill('0') << uppercase << endl;
-	cerr << "WARNING IN\t" << Common::FileNames.top() << endl;
-	cerr << "AT POSITION\t0x" << setw(8) << pos - Common::Offsets.top() << endl;
-	cerr << "MESSAGE\t" << msg << endl;
-	cerr << endl;
+	if (ShowWarnings)
+	{
+		cerr << hex << setfill('0') << uppercase << endl;
+		cerr << "WARNING IN\t" << Common::FileNames.top() << endl;
+		cerr << "AT POSITION\t0x" << setw(8) << pos - Common::Offsets.top() << endl;
+		cerr << "MESSAGE\t\t" << msg << endl;
+		cerr << endl;
+	}
 }
 
 void Common::Push(string fileName, uint8_t* data)

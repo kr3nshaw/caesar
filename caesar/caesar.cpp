@@ -1,3 +1,4 @@
+#include "Common.hpp"
 #include "Csar.hpp"
 #include <cstring>
 #include <iostream>
@@ -14,6 +15,7 @@ int main(int argc, char* argv[])
 		cout << "USAGE: caesar [options] <inputs>" << endl << endl;
 		cout << "OPTIONS:" << endl;
 		cout << "\t-p\tDo not ignore pan values of stereo samples" << endl;
+		cout << "\t-w\tShow warnings" << endl;
 	}
 	else
 	{
@@ -22,6 +24,10 @@ int main(int argc, char* argv[])
 			if (!strcmp(argv[i], "-p"))
 			{
 				p = true;
+			}
+			else if (!strcmp(argv[i], "-w"))
+			{
+				Common::ShowWarnings = true;
 			}
 			else
 			{
