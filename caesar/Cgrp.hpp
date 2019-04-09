@@ -1,6 +1,8 @@
 #ifndef Cgrp_hpp
 #define Cgrp_hpp
 
+#include "Cbnk.hpp"
+#include "Cseq.hpp"
 #include "Cwar.hpp"
 #include <cstdint>
 #include <ios>
@@ -20,6 +22,8 @@ typedef struct Cgrp
 	uint8_t* Data = nullptr;
 
 	std::vector<Cwar*> Cwars;
+	std::vector<Cbnk*> Cbnks;
+	std::vector<Cseq*> Cseqs;
 	bool P;
 
 	Cgrp(const char* fileName, bool p);

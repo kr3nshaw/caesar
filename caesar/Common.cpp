@@ -13,7 +13,7 @@ stack<string> Common::FileNames;
 stack<uint8_t*> Common::Offsets;
 vector<string> Common::Log;
 
-int32_t ReadFixLen(uint8_t* &pos, size_t bytes, bool littleEndian, bool isSigned)
+int32_t ReadFixLen(uint8_t*& pos, size_t bytes, bool littleEndian, bool isSigned)
 {
 	int32_t result = 0;
 
@@ -30,7 +30,7 @@ int32_t ReadFixLen(uint8_t* &pos, size_t bytes, bool littleEndian, bool isSigned
 	return result;
 }
 
-int32_t ReadVarLen(uint8_t* &pos)
+int32_t ReadVarLen(uint8_t*& pos)
 {
 	int32_t result = 0;
 

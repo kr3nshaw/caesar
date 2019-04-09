@@ -12,7 +12,7 @@
 
 using namespace std;
 
-vector<int32_t> ReadArgs(uint8_t* &pos, ArgType argType)
+vector<int32_t> ReadArgs(uint8_t*& pos, ArgType argType)
 {
 	if (argType == Uint8)
 	{

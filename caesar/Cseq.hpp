@@ -9,7 +9,7 @@
 enum SuffixType { _None, _Rnd, _Var, _Time, _TimeRnd, _TimeVar, _If };
 enum ArgType { None, Uint8, Int8, Uint16, Int16, Rnd, Var, VarLen };
 
-std::vector<int32_t> ReadArgs(uint8_t* &pos, ArgType argType);
+std::vector<int32_t> ReadArgs(uint8_t*& pos, ArgType argType);
 
 typedef struct
 {

@@ -105,7 +105,7 @@ double BnkToSf2::ConvertSustain(uint8_t sustain)
 	}
 }
 
-Cbnk::Cbnk(const char* fileName, vector<Cwar*> cwars, bool p) : FileName(fileName), Cwars(cwars), P(p)
+Cbnk::Cbnk(const char* fileName, vector<Cwar*>* cwars, bool p) : FileName(fileName), Cwars(cwars), P(p)
 {
 	ifstream ifs(FileName, ios::binary | ios::ate);
 
@@ -172,7 +172,7 @@ bool Cbnk::Convert(string cwarPath)
 
 		if (cwav.Id < 0xF000)
 		{
-			ifstream ifs(cwarPath + "/" + to_string(cwav.Cwar) + "/" + to_string(cwav.Id) + ".wav", ios::binary | ios::ate);
+			ifstream ifs(cwarPath + "/" + (*Cwars)[cwav.Cwar]->FileName.substr(0, (*Cwars)[cwav.Cwar]->FileName.length() - 5) + "/" + to_string(cwav.Id) + ".wav", ios::binary | ios::ate);
 
 			streamoff cwavLength = ifs.tellg();
 			uint8_t* cwavData = new uint8_t[cwavLength];
@@ -495,7 +495,7 @@ bool Cbnk::Convert(string cwarPath)
 					SFGeneratorItem decayVolEnv(SFGenerator::kDecayVolEnv, BnkToSf2::ConvertDecay(insts[i].Notes[j].Decay, insts[i].Notes[j].Sustain));
 					SFGeneratorItem releaseVolEnv(SFGenerator::kReleaseVolEnv, BnkToSf2::ConvertRelease(insts[i].Notes[j].Release, insts[i].Notes[j].Sustain));
 					SFGeneratorItem sustainVolEnv(SFGenerator::kSustainVolEnv, BnkToSf2::ConvertSustain(insts[i].Notes[j].Sustain));
-					SFGeneratorItem sampleModes(SFGenerator::kSampleModes, Cwars[insts[i].Notes[j].Cwav->Cwar]->Cwavs[insts[i].Notes[j].Cwav->Id]->SampleMode);
+					SFGeneratorItem sampleModes(SFGenerator::kSampleModes, (*Cwars)[insts[i].Notes[j].Cwav->Cwar]->Cwavs[insts[i].Notes[j].Cwav->Id]->SampleMode);
 
 					if (insts[i].Notes[j].Cwav->ChanCount == 1)
 					{

@@ -9,8 +9,8 @@
 #include <string>
 #include <vector>
 
-int32_t ReadFixLen(uint8_t* &pos, size_t bytes, bool littleEndian = true, bool isSigned = false);
-int32_t ReadVarLen(uint8_t* &pos);
+int32_t ReadFixLen(uint8_t*& pos, size_t bytes, bool littleEndian = true, bool isSigned = false);
+int32_t ReadVarLen(uint8_t*& pos);
 
 typedef struct Common
 {
