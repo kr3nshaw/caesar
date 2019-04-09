@@ -87,10 +87,10 @@ typedef struct Cbnk
 	std::streamoff Length;
 	uint8_t* Data = nullptr;
 
-	std::vector<Cwar*> Cwars;
+	std::vector<Cwar*>* Cwars;
 	bool P;
 
-	Cbnk(const char* fileName, std::vector<Cwar*> cwars, bool p);
+	Cbnk(const char* fileName, std::vector<Cwar*>* cwars, bool p);
 	~Cbnk();
 	bool Convert(std::string cwarPath);
 } Cbnk;

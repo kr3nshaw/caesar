@@ -251,6 +251,12 @@ bool Csar::Extract()
 
 		uint32_t id = ReadFixLen(pos, 4);
 
+		Common::Analyse("Cwar 0x04", ReadFixLen(pos, 4));
+		
+		uint32_t hasFileName = ReadFixLen(pos, 4);
+
+		string fileName = hasFileName ? strgs[ReadFixLen(pos, 4)].String : "WARC_" + to_string(i);
+
 		if (files[id].Offset != nullptr)
 		{
 			pos = files[id].Offset + 12;
@@ -260,18 +266,18 @@ bool Csar::Extract()
 			pos -= 16;
 
 #ifdef _WIN32
-			_mkdir(to_string(i).c_str());
-			_chdir(to_string(i).c_str());
+			_mkdir(fileName.c_str());
+			_chdir(fileName.c_str());
 #else
-			mkdir(to_string(i).c_str(), S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
-			chdir(to_string(i).c_str());
+			mkdir(fileName.c_str(), S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
+			chdir(fileName.c_str());
 #endif
 
-			ofstream ofs(string(to_string(i) + ".cwar"), ofstream::binary);
+			ofstream ofs(string(fileName + ".cwar"), ofstream::binary);
 			ofs.write(reinterpret_cast<const char*>(pos), cwarLength);
 			ofs.close();
 
-			Cwars.push_back(new Cwar(string(to_string(i) + ".cwar").c_str()));
+			Cwars.push_back(new Cwar(string(fileName + ".cwar").c_str()));
 
 			if (!Cwars[i]->Extract())
 			{
@@ -312,7 +318,9 @@ bool Csar::Extract()
 
 		cbnks[i].Id = ReadFixLen(pos, 4);
 
-		pos = cbnks[i].Offset + 16;
+		Common::Analyse("Cbnk 0x04", ReadFixLen(pos, 4));
+		Common::Analyse("Cbnk 0x08", ReadFixLen(pos, 4));
+		Common::Analyse("Cbnk 0x0C", ReadFixLen(pos, 4));
 
 		cbnks[i].FileName = strgs[ReadFixLen(pos, 4)].String;
 
@@ -336,7 +344,7 @@ bool Csar::Extract()
 			ofs.write(reinterpret_cast<const char*>(pos), cbnkLength);
 			ofs.close();
 
-			Cbnk cbnk(string(cbnks[i].FileName + ".cbnk").c_str(), Cwars, P);
+			Cbnk cbnk(string(cbnks[i].FileName + ".cbnk").c_str(), &Cwars, P);
 
 			if (!cbnk.Convert(".."))
 			{
@@ -385,7 +393,6 @@ bool Csar::Extract()
 
 		switch (type)
 		{
-			// TODO (Medium): Implement ability to read external streams and CWSDs
 			case 0x2201:
 			{
 				Common::Warning(pos - 16, "Skipping external stream");
