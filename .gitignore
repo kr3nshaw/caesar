@@ -259,3 +259,45 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
+#  autotools/cmake garbage.
+build
+cmakebuild
+.deps
+.dirstamp
+autom4te.cache
+stamp-h1
+aclocal.m4
+compile
+config.guess
+config.log
+config.status
+config.sub
+configure
+depcomp
+install-sh
+missing
+Makefile.in
+Makefile
+config.h
+config.h.in
+CMakeFiles
+CMakeCache.txt
+cmake_install.cmake
+
+# generated/user files
+*.a
+*.bin
+*.d
+*.elf
+*.map
+*.o
+*.obj
+*.tsk
+*.bcsar
+*.exe
+caesar
+
+# macOS Garbage
+.DS_Store
+._*
