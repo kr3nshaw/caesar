@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\libsmfc">
+      <UniqueIdentifier>{0a648a3f-8e93-4779-8d75-30a8c9c31b95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sf2cute">
+      <UniqueIdentifier>{6cecaac1-9bb0-4c10-8428-fc2a476ccceb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\libfsmfc">
+      <UniqueIdentifier>{08b4ca13-21de-4e69-8ea4-70729e780bb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\sf2cute">
+      <UniqueIdentifier>{a34c49b1-cdf5-4397-bf67-265c965125b3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="libsmfc\libsmfcx.h">
+      <Filter>Header Files\libsmfc</Filter>
+    </ClInclude>
+    <ClInclude Include="libsmfc\libsmfc.h">
+      <Filter>Header Files\libsmfc</Filter>
+    </ClInclude>
+    <ClInclude Include="Cwav.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cbnk.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cgrp.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Csar.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cseq.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cwar.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sf2cute-0.2\src\sf2cute\byteio.hpp">
+      <Filter>Header Files\sf2cute</Filter>
+    </ClInclude>
+    <ClInclude Include="sf2cute-0.2\src\sf2cute\file_writer.hpp">
+      <Filter>Header Files\sf2cute</Filter>
+    </ClInclude>
+    <ClInclude Include="sf2cute-0.2\src\sf2cute\riff.hpp">
+      <Filter>Header Files\sf2cute</Filter>
+    </ClInclude>
+    <ClInclude Include="sf2cute-0.2\src\sf2cute\riff_ibag_chunk.hpp">
+      <Filter>Header Files\sf2cute</Filter>
+    </ClInclude>
+    <ClInclude Include="sf2cute-0.2\src\sf2cute\riff_igen_chunk.hpp">
+      <Filter>Header Files\sf2cute</Filter>
+    </ClInclude>
+    <ClInclude Include="sf2cute-0.2\src\sf2cute\riff_imod_chunk.hpp">
+      <Filter>Header Files\sf2cute</Filter>
+    </ClInclude>
+    <ClInclude Include="sf2cute-0.2\src\sf2cute\riff_inst_chunk.hpp">
+      <Filter>Header Files\sf2cute</Filter>
+    </ClInclude>
+    <ClInclude Include="sf2cute-0.2\src\sf2cute\riff_pbag_chunk.hpp">
+      <Filter>Header Files\sf2cute</Filter>
+    </ClInclude>
+    <ClInclude Include="sf2cute-0.2\src\sf2cute\riff_pgen_chunk.hpp">
+      <Filter>Header Files\sf2cute</Filter>
+    </ClInclude>
+    <ClInclude Include="sf2cute-0.2\src\sf2cute\riff_phdr_chunk.hpp">
+      <Filter>Header Files\sf2cute</Filter>
+    </ClInclude>
+    <ClInclude Include="sf2cute-0.2\src\sf2cute\riff_pmod_chunk.hpp">
+      <Filter>Header Files\sf2cute</Filter>
+    </ClInclude>
+    <ClInclude Include="sf2cute-0.2\src\sf2cute\riff_shdr_chunk.hpp">
+      <Filter>Header Files\sf2cute</Filter>
+    </ClInclude>
+    <ClInclude Include="sf2cute-0.2\src\sf2cute\riff_smpl_chunk.hpp">
+      <Filter>Header Files\sf2cute</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\file.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\file_writer.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\generator_item.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\instrument.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\instrument_zone.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\modulator.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\modulator_item.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\modulator_key.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\preset.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\preset_zone.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\riff.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\riff_ibag_chunk.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\riff_igen_chunk.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\riff_imod_chunk.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\riff_inst_chunk.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\riff_pbag_chunk.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\riff_pgen_chunk.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\riff_phdr_chunk.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\riff_pmod_chunk.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\riff_shdr_chunk.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\riff_smpl_chunk.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\sample.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="sf2cute-0.2\src\sf2cute\zone.cpp">
+      <Filter>Source Files\sf2cute</Filter>
+    </ClCompile>
+    <ClCompile Include="libsmfc\libsmfcx.c">
+      <Filter>Source Files\libfsmfc</Filter>
+    </ClCompile>
+    <ClCompile Include="libsmfc\libsmfc.c">
+      <Filter>Source Files\libfsmfc</Filter>
+    </ClCompile>
+    <ClCompile Include="Cwar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Cwav.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="caesar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Cbnk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Cgrp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Csar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Cseq.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
