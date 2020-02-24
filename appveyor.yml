@@ -25,6 +25,7 @@ init:
 
 before_build:
 - cmd: |-
+    cd caesar
     cmake --version
     cmake .. -G %generator% 
 build:
