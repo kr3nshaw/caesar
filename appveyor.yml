@@ -27,7 +27,7 @@ before_build:
 - cmd: |-
     cd C:\projects\caesar
     cmake --version
-    cmake .. -G %generator% 
+    cmake .. -G %generator% c:\projects\caesar
 build:
   project: c:\projects\caesar\caesar.sln
   verbosity: minimal
