@@ -1,12 +1,43 @@
-version: 1.0.{build}
-image: Visual Studio 2019
-before_build:
-- cmd: >-
-    cmake --version
+version: '{build}'
+branches:
+  only:
+  - master
+image:
+- Visual Studio 2019
+configuration:
+- Release
+- Debug
+environment:
+  matrix:
+  - arch: Win64
+  # - arch: #does not work, Release|x64 not a valid target
+matrix:
+  fast_finish: true
 
+# skip unsupported combinations
+init:
+- set arch=
+- if "%arch%"=="Win64" ( set arch= Win64)
+- echo %arch%
+- echo %APPVEYOR_BUILD_WORKER_IMAGE%
+- if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2019" ( set generator="Visual Studio 16 2019" )
+- echo %generator%
+
+before_build:
+- cmd: |-
+    cd C:\projects\caesar
+    cmake --version
     cmake .. -G %generator% c:\projects\caesar
 build:
+  project: c:\projects\caesar\caesar.sln
   verbosity: minimal
+  parallel: true
+only_commits:
+  files:
+    - CMakeLists.txt
+    - appveyor.yml
+    - source/
+    - cmake/
 artifacts:
 - path: Release\caesar.exe
 - path: Debug\caesar.exe
