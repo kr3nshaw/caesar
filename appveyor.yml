@@ -39,4 +39,5 @@ only_commits:
     - source/
     - cmake/
 artifacts:
-- path: Release\caesar.exe
+- path: Release
+- path: Debug
