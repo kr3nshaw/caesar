@@ -37,7 +37,7 @@ before_build:
     cmake --version
     cmake .. -G %generator%
 build:
-  project: c:\projects\cmake-init\build\template.sln
+  project: c:\projects\caesar\caesar.sln
   verbosity: minimal
   parallel: true
 only_commits:
