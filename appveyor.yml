@@ -2,16 +2,11 @@ version: '{build}'
 branches:
   only:
   - master
-clone_folder: c:\projects\cmake-init
 image:
-- Visual Studio 2013
-- Visual Studio 2015
-- Visual Studio 2017
+- Visual Studio 2019
 configuration:
 - Release
 - Debug
-platform:
-- x64
 environment:
   matrix:
   - arch: Win64
