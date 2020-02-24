@@ -41,6 +41,7 @@
     <ClInclude Include="sf2cute-0.2\src\sf2cute\riff_pmod_chunk.hpp" />
     <ClInclude Include="sf2cute-0.2\src\sf2cute\riff_shdr_chunk.hpp" />
     <ClInclude Include="sf2cute-0.2\src\sf2cute\riff_smpl_chunk.hpp" />
+     <ClInclude Include="vcruntime140_1.dll" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="caesar.cpp" />
