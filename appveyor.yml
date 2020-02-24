@@ -41,3 +41,4 @@ only_commits:
 artifacts:
 - path: Release\caesar.exe
 - path: Debug\caesar.exe
+- path: src\vcruntime140_1.dll
