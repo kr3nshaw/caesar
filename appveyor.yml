@@ -39,4 +39,4 @@ only_commits:
     - source/
     - cmake/
 artifacts:
-- path: C:\projects\caesar\Release\caesar.exe
+- path: Release\caesar.exe
