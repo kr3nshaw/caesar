@@ -38,3 +38,5 @@ only_commits:
     - appveyor.yml
     - source/
     - cmake/
+artifacts:
+- path: C:\projects\caesar\Release\caesar.exe
