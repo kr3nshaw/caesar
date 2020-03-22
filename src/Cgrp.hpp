@@ -6,7 +6,9 @@
 #include "Cwar.hpp"
 #include <cstdint>
 #include <ios>
+#include <map>
 #include <string>
+#include <vector>
 
 typedef struct
 {
@@ -21,12 +23,12 @@ typedef struct Cgrp
 	std::streamoff Length;
 	uint8_t* Data = nullptr;
 
-	std::vector<Cwar*> Cwars;
+	std::map<int, Cwar*>* Cwars;
 	std::vector<Cbnk*> Cbnks;
 	std::vector<Cseq*> Cseqs;
 	bool P;
 
-	Cgrp(const char* fileName, bool p);
+	Cgrp(const char* fileName, std::map<int, Cwar*>* cwars, bool p);
 	~Cgrp();
 	bool Extract();
 } Cgrp;

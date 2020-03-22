@@ -5,6 +5,7 @@
 #include "Cwar.hpp"
 #include <cstdint>
 #include <fstream>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -18,7 +19,7 @@
 
 using namespace std;
 
-Cgrp::Cgrp(const char* fileName, bool p) : FileName(fileName), P(p)
+Cgrp::Cgrp(const char* fileName, map<int, Cwar*>* cwars, bool p) : FileName(fileName), Cwars(cwars), P(p)
 {
 	ifstream ifs(FileName, ios::binary | ios::ate);
 
@@ -47,14 +48,6 @@ Cgrp::~Cgrp()
 		if (cbnk)
 		{
 			delete cbnk;
-		}
-	}
-
-	for (auto cwar : Cwars)
-	{
-		if (cwar)
-		{
-			delete cwar;
 		}
 	}
 
@@ -163,7 +156,6 @@ bool Cgrp::Extract()
 
 		switch (fileId)
 		{
-			// TODO: The CWARs have IDs, because they're referenced in the CBNKs...where do these IDs come from?
 			case 0x43574152:
 			{
 				pos += 8;
@@ -173,18 +165,35 @@ bool Cgrp::Extract()
 				pos -= 16;
 
 #ifdef _WIN32
-				_mkdir(to_string(Cwars.size()).c_str());
-				_chdir(to_string(Cwars.size()).c_str());
+				_mkdir(to_string(files[i].Id).c_str());
+				_chdir(to_string(files[i].Id).c_str());
 #else
-				mkdir(to_string(Cwars.size()).c_str(), S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
-				chdir(to_string(Cwars.size()).c_str());
+				mkdir(to_string(files[i].Id).c_str(), S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
+				chdir(to_string(files[i].Id).c_str());
 #endif
 
-				ofstream ofs(string(to_string(Cwars.size()) + ".cwar"), ofstream::binary);
+				ofstream ofs(string(to_string(files[i].Id) + ".cwar"), ofstream::binary);
 				ofs.write(reinterpret_cast<const char*>(pos), cwarLength);
 				ofs.close();
 
-				Cwars.push_back(new Cwar(string(to_string(Cwars.size()) + ".cwar").c_str()));
+				(*Cwars)[files[i].Id] = new Cwar(string(to_string(files[i].Id) + ".cwar").c_str());
+
+#ifdef _WIN32
+				_chdir("..");
+#else
+				chdir("..");
+#endif
+
+#ifdef _WIN32
+				_chdir((*Cwars)[files[i].Id]->FileName.substr(0, (*Cwars)[files[i].Id]->FileName.length() - 5).c_str());
+#else
+				chdir(Cwars[i]->FileName.substr(0, Cwars[i]->FileName.length() - 5).c_str());
+#endif
+
+				if (!(*Cwars)[files[i].Id]->Extract())
+				{
+					return false;
+				}
 
 #ifdef _WIN32
 				_chdir("..");
@@ -204,18 +213,18 @@ bool Cgrp::Extract()
 				pos -= 16;
 
 #ifdef _WIN32
-				_mkdir(to_string(Cbnks.size()).c_str());
-				_chdir(to_string(Cbnks.size()).c_str());
+				_mkdir(to_string(files[i].Id).c_str());
+				_chdir(to_string(files[i].Id).c_str());
 #else
-				mkdir(to_string(Cbnks.size()).c_str(), S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
-				chdir(to_string(Cbnks.size()).c_str());
+				mkdir(to_string(files[i].Id).c_str(), S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
+				chdir(to_string(files[i].Id).c_str());
 #endif
 
-				ofstream ofs(string(to_string(Cbnks.size()) + ".cbnk"), ofstream::binary);
+				ofstream ofs(string(to_string(files[i].Id) + ".cbnk"), ofstream::binary);
 				ofs.write(reinterpret_cast<const char*>(pos), cbnkLength);
 				ofs.close();
 
-				Cbnks.push_back(new Cbnk(string(to_string(Cbnks.size()) + ".cbnk").c_str(), &Cwars, P));
+				Cbnks.push_back(new Cbnk(string(to_string(files[i].Id) + ".cbnk").c_str(), Cwars, P));
 
 #ifdef _WIN32
 				_chdir("..");
@@ -241,11 +250,11 @@ bool Cgrp::Extract()
 				chdir(cbnks[cbnk].FileName.c_str());
 #endif*/
 
-				ofstream ofs(string(to_string(Cseqs.size()) + ".cseq"), ofstream::binary);
+				ofstream ofs(string(to_string(files[i].Id) + ".cseq"), ofstream::binary);
 				ofs.write(reinterpret_cast<const char*>(pos), cseqLength);
 				ofs.close();
 
-				Cseqs.push_back(new Cseq(string(to_string(Cseqs.size()) + ".cseq").c_str()));
+				Cseqs.push_back(new Cseq(string(to_string(files[i].Id) + ".cseq").c_str()));
 
 /*#ifdef _WIN32
 				_chdir("..");
@@ -270,26 +279,6 @@ bool Cgrp::Extract()
 				return false;
 			}
 		}
-	}
-
-	for (uint32_t i = 0; i < Cwars.size(); ++i)
-	{
-#ifdef _WIN32
-		_chdir(Cwars[i]->FileName.substr(0, Cwars[i]->FileName.length() - 5).c_str());
-#else
-		chdir(Cwars[i]->FileName.substr(0, Cwars[i]->FileName.length() - 5).c_str());
-#endif
-
-		if (!Cwars[i]->Extract())
-		{
-			return false;
-		}
-
-#ifdef _WIN32
-		_chdir("..");
-#else
-		chdir("..");
-#endif
 	}
 
 	for (uint32_t i = 0; i < Cbnks.size(); ++i)
