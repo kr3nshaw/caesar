@@ -4,8 +4,8 @@
 #include "Cwar.hpp"
 #include <cstdint>
 #include <ios>
+#include <map>
 #include <string>
-#include <vector>
 
 typedef struct
 {
@@ -52,7 +52,7 @@ typedef struct Csar
 	std::streamoff Length;
 	uint8_t* Data = nullptr;
 
-	std::vector<Cwar*> Cwars;
+	std::map<int, Cwar*> Cwars;
 	bool P;
 
 	Csar(const char* fileName, bool p);

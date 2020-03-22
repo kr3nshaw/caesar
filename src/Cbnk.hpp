@@ -5,6 +5,7 @@
 #include <ios>
 #include <cstdint>
 #include <string>
+#include <map>
 #include <vector>
 
 typedef struct
@@ -87,10 +88,10 @@ typedef struct Cbnk
 	std::streamoff Length;
 	uint8_t* Data = nullptr;
 
-	std::vector<Cwar*>* Cwars;
+	std::map<int, Cwar*>* Cwars;
 	bool P;
 
-	Cbnk(const char* fileName, std::vector<Cwar*>* cwars, bool p);
+	Cbnk(const char* fileName, std::map<int, Cwar*>* cwars, bool p);
 	~Cbnk();
 	bool Convert(std::string cwarPath);
 } Cbnk;

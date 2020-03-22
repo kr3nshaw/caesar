@@ -6,6 +6,7 @@
 #include "Cwar.hpp"
 #include <cstdint>
 #include <fstream>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -37,9 +38,9 @@ Csar::~Csar()
 {
 	for (auto cwar : Cwars)
 	{
-		if (cwar)
+		if (cwar.second)
 		{
-			delete cwar;
+			delete cwar.second;
 		}
 	}
 
@@ -255,7 +256,7 @@ bool Csar::Extract()
 		
 		uint32_t hasFileName = ReadFixLen(pos, 4);
 
-		string fileName = hasFileName ? strgs[ReadFixLen(pos, 4)].String : "WARC_" + to_string(i);
+		string fileName = hasFileName ? strgs[ReadFixLen(pos, 4)].String : to_string(id);
 
 		if (files[id].Offset != nullptr)
 		{
@@ -277,9 +278,9 @@ bool Csar::Extract()
 			ofs.write(reinterpret_cast<const char*>(pos), cwarLength);
 			ofs.close();
 
-			Cwars.push_back(new Cwar(string(fileName + ".cwar").c_str()));
+			Cwars[id] = new Cwar(string(fileName + ".cwar").c_str());
 
-			if (!Cwars[i]->Extract())
+			if (!Cwars[id]->Extract())
 			{
 				return false;
 			}
@@ -292,7 +293,7 @@ bool Csar::Extract()
 		}
 		else
 		{
-			Cwars.push_back(nullptr);
+			Cwars[id] = nullptr;
 		}
 	}
 
@@ -504,14 +505,6 @@ bool Csar::Extract()
 
 		cgrps[i].FileName = strgs[ReadFixLen(pos, 4)].String;
 
-#ifdef _WIN32
-		_mkdir(cgrps[i].FileName.c_str());
-		_chdir(cgrps[i].FileName.c_str());
-#else
-		mkdir(cgrps[i].FileName.c_str(), S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
-		chdir(cgrps[i].FileName.c_str());
-#endif
-
 		if (files[cgrps[i].Id].Offset != nullptr)
 		{
 			pos = files[cgrps[i].Id].Offset + 12;
@@ -524,19 +517,13 @@ bool Csar::Extract()
 			ofs.write(reinterpret_cast<const char*>(pos), cgrpLength);
 			ofs.close();
 
-			Cgrp cgrp(string(cgrps[i].FileName + ".cgrp").c_str(), P);
+			Cgrp cgrp(string(cgrps[i].FileName + ".cgrp").c_str(), &Cwars, P);
 
 			if (!cgrp.Extract())
 			{
 				return false;
 			}
 		}
-
-#ifdef _WIN32
-		_chdir("..");
-#else
-		chdir("..");
-#endif
 	}
 
 	Common::Dump(FileName.substr(0, FileName.length() - 5).append("log"));
