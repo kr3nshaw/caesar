@@ -9,17 +9,9 @@
 #include <string>
 #include <vector>
 
-#ifdef _WIN32
-#include <direct.h>
-#else
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#endif
-
 using namespace std;
 
-Cgrp::Cgrp(const char* fileName, map<int, Cwar*>* cwars, bool p) : FileName(fileName), Cwars(cwars), P(p)
+Cgrp::Cgrp(const char* fileName, map<int, Cwar*>* cwars, const map<int, bool>& cseqsFromCsar, bool p) : FileName(fileName), Cwars(cwars), CseqsFromCsar(cseqsFromCsar), P(p)
 {
 	ifstream ifs(FileName, ios::binary | ios::ate);
 
@@ -150,6 +142,11 @@ bool Cgrp::Extract()
 			continue;
 		}
 
+		if (CseqsFromCsar[files[i].Id] == true)
+		{
+			continue;
+		}
+
 		pos = files[i].Offset;
 
 		uint32_t fileId = ReadFixLen(pos, 4, false);
@@ -209,7 +206,6 @@ bool Cgrp::Extract()
 				break;
 			}
 
-			// TODO: Where is the bank for each sequence stored?
 			case 0x43534551:
 			{
 				pos += 8;
@@ -218,23 +214,11 @@ bool Cgrp::Extract()
 
 				pos -= 16;
 
-/*#ifdef _WIN32
-				_chdir(cbnks[cbnk].FileName.c_str());
-#else
-				chdir(cbnks[cbnk].FileName.c_str());
-#endif*/
-
 				ofstream ofs(string(to_string(files[i].Id) + ".cseq"), ofstream::binary);
 				ofs.write(reinterpret_cast<const char*>(pos), cseqLength);
 				ofs.close();
 
 				Cseqs.push_back(new Cseq(string(to_string(files[i].Id) + ".cseq").c_str()));
-
-/*#ifdef _WIN32
-				_chdir("..");
-#else
-				chdir("..");
-#endif*/
 
 				break;
 			}

@@ -10,14 +10,6 @@
 #include <string>
 #include <vector>
 
-#ifdef _WIN32
-#include <direct.h>
-#else
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#endif
-
 using namespace std;
 
 Csar::Csar(const char* fileName, bool p) : FileName(fileName), P(p)
@@ -342,6 +334,7 @@ bool Csar::Extract()
 	uint32_t cseqCount = ReadFixLen(pos, 4);
 
 	vector<CsarCseq> cseqs;
+	map<int, bool> cseqsFromCsar;
 
 	for (uint32_t i = 0; i < cseqCount; ++i)
 	{
@@ -411,6 +404,8 @@ bool Csar::Extract()
 				}
 
 				Common::Chdir("..");
+
+				cseqsFromCsar[id] = true;
 
 				break;
 			}
@@ -486,7 +481,7 @@ bool Csar::Extract()
 			ofs.write(reinterpret_cast<const char*>(pos), cgrpLength);
 			ofs.close();
 
-			Cgrp cgrp(string(cgrps[i].FileName + ".cgrp").c_str(), &Cwars, P);
+			Cgrp cgrp(string(cgrps[i].FileName + ".cgrp").c_str(), &Cwars, cseqsFromCsar, P);
 
 			if (!cgrp.Extract())
 			{

@@ -94,7 +94,8 @@ void Common::Dump(string fileName)
 	ofs.close();
 }
 
-void Common::Chdir(const std::string &filePath) {
+void Common::Chdir(const string& filePath)
+{
 #ifdef _WIN32
 	_chdir(filePath.c_str());
 #else
@@ -102,7 +103,8 @@ void Common::Chdir(const std::string &filePath) {
 #endif
 }
 
-void Common::Mkdir(const std::string &filePath) {
+void Common::Mkdir(const string& filePath)
+{
 #ifdef _WIN32
 	_mkdir(filePath.c_str());
 #else

@@ -26,9 +26,10 @@ typedef struct Cgrp
 	std::map<int, Cwar*>* Cwars;
 	std::vector<Cbnk*> Cbnks;
 	std::vector<Cseq*> Cseqs;
+	std::map<int, bool> CseqsFromCsar;
 	bool P;
 
-	Cgrp(const char* fileName, std::map<int, Cwar*>* cwars, bool p);
+	Cgrp(const char* fileName, std::map<int, Cwar*>* cwars, const std::map<int, bool>& cseqsFromCsar, bool p);
 	~Cgrp();
 	bool Extract();
 } Cgrp;
