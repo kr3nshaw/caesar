@@ -626,7 +626,7 @@ bool Cseq::Convert()
 			}
 			else if (i->second.Cmd == 0xDF)
 			{
-				Common::Warning(Data + dataOffset + 8 + i->first, "damper not implemented");
+			smfInsertControl(smf, absTime, track, track, 64, i->second.Args[0]);
 			}
 			else if (i->second.Cmd == 0xE0)
 			{
