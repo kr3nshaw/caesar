@@ -164,13 +164,8 @@ bool Cgrp::Extract()
 
 				pos -= 16;
 
-#ifdef _WIN32
-				_mkdir(to_string(files[i].Id).c_str());
-				_chdir(to_string(files[i].Id).c_str());
-#else
-				mkdir(to_string(files[i].Id).c_str(), S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
-				chdir(to_string(files[i].Id).c_str());
-#endif
+				Common::Mkdir(to_string(files[i].Id));
+				Common::Chdir(to_string(files[i].Id));
 
 				ofstream ofs(string(to_string(files[i].Id) + ".cwar"), ofstream::binary);
 				ofs.write(reinterpret_cast<const char*>(pos), cwarLength);
@@ -178,28 +173,16 @@ bool Cgrp::Extract()
 
 				(*Cwars)[files[i].Id] = new Cwar(string(to_string(files[i].Id) + ".cwar").c_str());
 
-#ifdef _WIN32
-				_chdir("..");
-#else
-				chdir("..");
-#endif
+				Common::Chdir("..");
 
-#ifdef _WIN32
-				_chdir((*Cwars)[files[i].Id]->FileName.substr(0, (*Cwars)[files[i].Id]->FileName.length() - 5).c_str());
-#else
-				chdir(Cwars[i]->FileName.substr(0, Cwars[i]->FileName.length() - 5).c_str());
-#endif
+				Common::Chdir(((*Cwars)[files[i].Id]->FileName.substr(0, (*Cwars)[files[i].Id]->FileName.length() - 5)));
 
 				if (!(*Cwars)[files[i].Id]->Extract())
 				{
 					return false;
 				}
 
-#ifdef _WIN32
-				_chdir("..");
-#else
-				chdir("..");
-#endif
+				Common::Chdir("..");
 
 				break;
 			}
@@ -212,13 +195,8 @@ bool Cgrp::Extract()
 
 				pos -= 16;
 
-#ifdef _WIN32
-				_mkdir(to_string(files[i].Id).c_str());
-				_chdir(to_string(files[i].Id).c_str());
-#else
-				mkdir(to_string(files[i].Id).c_str(), S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
-				chdir(to_string(files[i].Id).c_str());
-#endif
+				Common::Mkdir(to_string(files[i].Id));
+				Common::Chdir(to_string(files[i].Id));
 
 				ofstream ofs(string(to_string(files[i].Id) + ".cbnk"), ofstream::binary);
 				ofs.write(reinterpret_cast<const char*>(pos), cbnkLength);
@@ -226,11 +204,7 @@ bool Cgrp::Extract()
 
 				Cbnks.push_back(new Cbnk(string(to_string(files[i].Id) + ".cbnk").c_str(), Cwars, P));
 
-#ifdef _WIN32
-				_chdir("..");
-#else
-				chdir("..");
-#endif
+				Common::Chdir("..");
 
 				break;
 			}
@@ -283,22 +257,14 @@ bool Cgrp::Extract()
 
 	for (uint32_t i = 0; i < Cbnks.size(); ++i)
 	{
-#ifdef _WIN32
-		_chdir(Cbnks[i]->FileName.substr(0, Cbnks[i]->FileName.length() - 5).c_str());
-#else
-		chdir(Cbnks[i]->FileName.substr(0, Cbnks[i]->FileName.length() - 5).c_str());
-#endif
+		Common::Chdir(Cbnks[i]->FileName.substr(0, Cbnks[i]->FileName.length() - 5));
 
 		if (!Cbnks[i]->Convert(".."))
 		{
 			return false;
 		}
 
-#ifdef _WIN32
-		_chdir("..");
-#else
-		chdir("..");
-#endif
+		Common::Chdir("..");
 	}
 
 	for (uint32_t i = 0; i < Cseqs.size(); ++i)

@@ -54,13 +54,8 @@ Csar::~Csar()
 
 bool Csar::Extract()
 {
-#ifdef _WIN32
-	_mkdir(FileName.substr(0, FileName.length() - 6).c_str());
-	_chdir(FileName.substr(0, FileName.length() - 6).c_str());
-#else
-	mkdir(FileName.substr(0, FileName.length() - 6).c_str(), S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
-	chdir(FileName.substr(0, FileName.length() - 6).c_str());
-#endif
+	Common::Mkdir(FileName.substr(0, FileName.length() - 6));
+	Common::Chdir(FileName.substr(0, FileName.length() - 6));
 
 	uint8_t* pos = Data;
 
@@ -266,13 +261,8 @@ bool Csar::Extract()
 
 			pos -= 16;
 
-#ifdef _WIN32
-			_mkdir(fileName.c_str());
-			_chdir(fileName.c_str());
-#else
-			mkdir(fileName.c_str(), S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
-			chdir(fileName.c_str());
-#endif
+			Common::Mkdir(fileName);
+			Common::Chdir(fileName);
 
 			ofstream ofs(string(fileName + ".cwar"), ofstream::binary);
 			ofs.write(reinterpret_cast<const char*>(pos), cwarLength);
@@ -285,11 +275,7 @@ bool Csar::Extract()
 				return false;
 			}
 
-#ifdef _WIN32
-			_chdir("..");
-#else
-			chdir("..");
-#endif
+			Common::Chdir("..");
 		}
 		else
 		{
@@ -325,13 +311,8 @@ bool Csar::Extract()
 
 		cbnks[i].FileName = strgs[ReadFixLen(pos, 4)].String;
 
-#ifdef _WIN32
-		_mkdir(cbnks[i].FileName.c_str());
-		_chdir(cbnks[i].FileName.c_str());
-#else
-		mkdir(cbnks[i].FileName.c_str(), S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
-		chdir(cbnks[i].FileName.c_str());
-#endif
+		Common::Mkdir(cbnks[i].FileName);
+		Common::Chdir(cbnks[i].FileName);
 
 		if (files[cbnks[i].Id].Offset != nullptr)
 		{
@@ -353,11 +334,7 @@ bool Csar::Extract()
 			}
 		}
 
-#ifdef _WIN32
-		_chdir("..");
-#else
-		chdir("..");
-#endif
+		Common::Chdir("..");
 	}
 
 	pos = Data + infoOffset + 8 + infoCseqOffset;
@@ -420,11 +397,7 @@ bool Csar::Extract()
 
 				pos -= 16;
 
-#ifdef _WIN32
-				_chdir(cbnks[cbnk].FileName.c_str());
-#else
-				chdir(cbnks[cbnk].FileName.c_str());
-#endif
+				Common::Chdir(cbnks[cbnk].FileName);
 
 				ofstream ofs(string(cseqs[i].FileName + ".cseq"), ofstream::binary);
 				ofs.write(reinterpret_cast<const char*>(pos), cseqLength);
@@ -437,11 +410,7 @@ bool Csar::Extract()
 					return false;
 				}
 
-#ifdef _WIN32
-				_chdir("..");
-#else
-				chdir("..");
-#endif
+				Common::Chdir("..");
 
 				break;
 			}
