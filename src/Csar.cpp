@@ -74,37 +74,40 @@ bool Csar::Extract()
 	uint32_t fileOffset = ReadFixLen(pos, 4);
 	uint32_t fileLength = ReadFixLen(pos, 4);
 
-	pos = Data + strgOffset;
-
-	if (!Common::Assert(pos, 0x53545247, ReadFixLen(pos, 4, false))) { return false; }
-	if (!Common::Assert<uint32_t>(pos, strgLength, ReadFixLen(pos, 4))) { return false; }
-	if (!Common::Assert(pos, 0x2400, ReadFixLen(pos, 4))) { return false; }
-
-	uint32_t strgStringsOffset = ReadFixLen(pos, 4);
-
-	if (!Common::Assert(pos, 0x2401, ReadFixLen(pos, 4))) { return false; }
-
-	uint32_t strgUnknownOffset = ReadFixLen(pos, 4);
-	uint32_t strgCount = ReadFixLen(pos, 4);
-
 	vector<CsarStrg> strgs;
 
-	for (uint32_t i = 0; i < strgCount; ++i)
+	if (strgOffset != 0xFFFFFFFF)
 	{
-		if (!Common::Assert(pos, 0x1F01, ReadFixLen(pos, 4))) { return false; }
+		pos = Data + strgOffset;
 
-		CsarStrg strg;
-		strg.Offset = Data + strgOffset + 24 + ReadFixLen(pos, 4);
-		strg.Length = ReadFixLen(pos, 4);
+		if (!Common::Assert(pos, 0x53545247, ReadFixLen(pos, 4, false))) { return false; }
+		if (!Common::Assert<uint32_t>(pos, strgLength, ReadFixLen(pos, 4))) { return false; }
+		if (!Common::Assert(pos, 0x2400, ReadFixLen(pos, 4))) { return false; }
 
-		strgs.push_back(strg);
-	}
+		uint32_t strgStringsOffset = ReadFixLen(pos, 4);
 
-	for (uint32_t i = 0; i < strgCount; ++i)
-	{
-		strgs[i].String = string(reinterpret_cast<const char*>(pos), strgs[i].Length - 1);
+		if (!Common::Assert(pos, 0x2401, ReadFixLen(pos, 4))) { return false; }
 
-		pos = i != (strgCount - 1) ? strgs[i + 1].Offset : pos + strgs[i].Length;
+		uint32_t strgUnknownOffset = ReadFixLen(pos, 4);
+		uint32_t strgCount = ReadFixLen(pos, 4);
+
+		for (uint32_t i = 0; i < strgCount; ++i)
+		{
+			if (!Common::Assert(pos, 0x1F01, ReadFixLen(pos, 4))) { return false; }
+
+			CsarStrg strg;
+			strg.Offset = Data + strgOffset + 24 + ReadFixLen(pos, 4);
+			strg.Length = ReadFixLen(pos, 4);
+
+			strgs.push_back(strg);
+		}
+
+		for (uint32_t i = 0; i < strgCount; ++i)
+		{
+			strgs[i].String = string(reinterpret_cast<const char*>(pos), strgs[i].Length - 1);
+
+			pos = i != (strgCount - 1) ? strgs[i + 1].Offset : pos + strgs[i].Length;
+		}
 	}
 
 	pos = Data + infoOffset;
@@ -301,7 +304,7 @@ bool Csar::Extract()
 		Common::Analyse("Cbnk 0x08", ReadFixLen(pos, 4));
 		Common::Analyse("Cbnk 0x0C", ReadFixLen(pos, 4));
 
-		cbnks[i].FileName = strgs[ReadFixLen(pos, 4)].String;
+		cbnks[i].FileName = strgOffset != 0xFFFFFFFF ? strgs[ReadFixLen(pos, 4)].String : to_string(cbnks[i].Id);
 
 		Common::Mkdir(cbnks[i].FileName);
 		Common::Chdir(cbnks[i].FileName);
@@ -360,7 +363,7 @@ bool Csar::Extract()
 
 		Common::Analyse("Cseq 0x14", ReadFixLen(pos, 4));
 
-		cseqs[i].FileName = strgs[ReadFixLen(pos, 4)].String;
+		cseqs[i].FileName = strgOffset != 0xFFFFFFFF ? strgs[ReadFixLen(pos, 4)].String : to_string(id);
 
 		switch (type)
 		{
@@ -467,7 +470,7 @@ bool Csar::Extract()
 
 		if (!Common::Assert(pos, 0x1, ReadFixLen(pos, 4))) { return false; }
 
-		cgrps[i].FileName = strgs[ReadFixLen(pos, 4)].String;
+		cgrps[i].FileName = strgOffset != 0xFFFFFFFF ? strgs[ReadFixLen(pos, 4)].String : to_string(cgrps[i].Id);
 
 		if (files[cgrps[i].Id].Offset != nullptr)
 		{
