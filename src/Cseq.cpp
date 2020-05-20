@@ -401,7 +401,7 @@ bool Cseq::Convert()
 		}
 		else
 		{
-		Common::Error(pos - 1, "A valid command", statusByte);
+			Common::Error(pos - 1, "A valid command", statusByte);
 
 			return false;
 		}

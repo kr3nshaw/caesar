@@ -1,5 +1,5 @@
 # caesar
-A tool that extracts the contents of Nintendo’s Binary Citrus Sound Archives.
+A tool that extracts the contents of Citrus Sound Archives.
 
 # Usage
 ```
