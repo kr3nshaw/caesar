@@ -1,5 +1,4 @@
-#ifndef common_hpp
-#define common_hpp
+#pragma once
 
 #include <cstdint>
 #include <iomanip>
@@ -12,7 +11,7 @@
 int32_t ReadFixLen(uint8_t*& pos, size_t bytes, bool littleEndian = true, bool isSigned = false);
 int32_t ReadVarLen(uint8_t*& pos);
 
-typedef struct Common
+struct Common
 {
 	static bool ShowWarnings;
 	static std::stack<std::string> FileNames;
@@ -55,6 +54,4 @@ typedef struct Common
 	static void Dump(std::string fileName);
 	static void Chdir(const std::string& filePath);
 	static void Mkdir(const std::string& filePath);
-} Common;
-
-#endif /* common_hpp */
+};

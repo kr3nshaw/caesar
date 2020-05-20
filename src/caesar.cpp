@@ -16,6 +16,8 @@ int main(int argc, char* argv[])
 		cout << "OPTIONS:" << endl;
 		cout << "\t-p\tDo not ignore pan values of stereo samples" << endl;
 		cout << "\t-w\tShow warnings" << endl;
+
+		return 1;
 	}
 	else
 	{

@@ -1,5 +1,4 @@
-#ifndef Csar_hpp
-#define Csar_hpp
+#pragma once
 
 #include "Cwar.hpp"
 #include <cstdint>
@@ -7,46 +6,46 @@
 #include <map>
 #include <string>
 
-typedef struct
+struct CsarStrg
 {
 	uint8_t* Offset;
 	uint32_t Length;
 
 	std::string String;
-} CsarStrg;
+};
 
-typedef struct
+struct CsarFile
 {
 	uint8_t* Offset;
 	uint32_t Length;
 
 	std::string Location = "";
-} CsarFile;
+};
 
-typedef struct
+struct CsarCbnk
 {
 	uint8_t* Offset;
 
 	uint32_t Id;
 	std::string FileName;
-} CsarCbnk;
+};
 
-typedef struct
+struct CsarCseq
 {
 	uint8_t* Offset;
 
 	std::string FileName;
-} CsarCseq;
+};
 
-typedef struct
+struct CsarCgrp
 {
 	uint8_t* Offset;
 
 	uint32_t Id;
 	std::string FileName;
-} CsarCgrp;
+};
 
-typedef struct Csar
+struct Csar
 {
 	std::string FileName;
 	std::streamoff Length;
@@ -58,6 +57,4 @@ typedef struct Csar
 	Csar(const char* fileName, bool p);
 	~Csar();
 	bool Extract();
-} Csar;
-
-#endif /* Csar_hpp */
+};

@@ -1,5 +1,4 @@
-#ifndef Cwar_hpp
-#define Cwar_hpp
+#pragma once
 
 #include "Cwav.hpp"
 #include <cstdint>
@@ -7,13 +6,13 @@
 #include <string>
 #include <vector>
 
-typedef struct
+struct CwarCwav
 {
 	uint8_t* Offset;
 	uint32_t Length;
-} CwarCwav;
+};
 
-typedef struct Cwar
+struct Cwar
 {
 	std::string FileName;
 	std::streamoff Length;
@@ -24,6 +23,4 @@ typedef struct Cwar
 	Cwar(const char* fileName);
 	~Cwar();
 	bool Extract();
-} Cwar;
-
-#endif /* Cwar_hpp */
+};

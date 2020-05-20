@@ -1,5 +1,4 @@
-#ifndef Cgrp_hpp
-#define Cgrp_hpp
+#pragma once
 
 #include "Cbnk.hpp"
 #include "Cseq.hpp"
@@ -10,14 +9,14 @@
 #include <string>
 #include <vector>
 
-typedef struct
+struct CgrpFile
 {
 	uint32_t Id;
 	uint8_t* Offset;
 	uint32_t Length;
-} CgrpFile;
+};
 
-typedef struct Cgrp
+struct Cgrp
 {
 	std::string FileName;
 	std::streamoff Length;
@@ -32,6 +31,4 @@ typedef struct Cgrp
 	Cgrp(const char* fileName, std::map<int, Cwar*>* cwars, const std::map<int, bool>& cseqsFromCsar, bool p);
 	~Cgrp();
 	bool Extract();
-} Cgrp;
-
-#endif /* Cgrp_hpp */
+};

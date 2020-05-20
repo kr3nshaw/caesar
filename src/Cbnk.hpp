@@ -1,5 +1,4 @@
-#ifndef Cbnk_hpp
-#define Cbnk_hpp
+#pragma once
 
 #include "Cwar.hpp"
 #include <ios>
@@ -8,7 +7,7 @@
 #include <map>
 #include <vector>
 
-typedef struct
+struct CbnkCwav
 {
 	uint32_t Cwar;
 	uint32_t Id;
@@ -23,9 +22,9 @@ typedef struct
 	bool Loop = false;
 	uint32_t LoopStart;
 	uint32_t LoopEnd;
-} CbnkCwav;
+};
 
-typedef struct
+struct WaveSmpl
 {
 	uint32_t CuePointId;
 	uint32_t Type;
@@ -33,9 +32,9 @@ typedef struct
 	uint32_t End;
 	uint32_t Fraction;
 	uint32_t PlayCount;
-} WaveSmpl;
+};
 
-typedef struct
+struct CbnkNote
 {
 	bool Exists = true;
 	uint8_t* Offset;
@@ -52,9 +51,9 @@ typedef struct
 	uint8_t Sustain;
 	uint8_t Hold;
 	uint8_t Release;
-} CbnkNote;
+};
 
-typedef struct
+struct CbnkInst
 {
 	bool Exists = true;
 	uint8_t* Offset;
@@ -63,9 +62,9 @@ typedef struct
 	std::vector<CbnkNote> Notes;
 
 	bool IsDrumKit = false;
-} CbnkInst;
+};
 
-typedef struct BnkToSf2
+struct BnkToSf2
 {
 	static double AttackTable[128];
 	static double HoldTable[128];
@@ -80,9 +79,9 @@ typedef struct BnkToSf2
 	static double ConvertDecay(uint8_t decay, uint8_t sustain);
 	static double ConvertRelease(uint8_t release, uint8_t sustain);
 	static double ConvertSustain(uint8_t sustain);
-} BnkToSf2;
+};
 
-typedef struct Cbnk
+struct Cbnk
 {
 	std::string FileName;
 	std::streamoff Length;
@@ -94,6 +93,4 @@ typedef struct Cbnk
 	Cbnk(const char* fileName, std::map<int, Cwar*>* cwars, bool p);
 	~Cbnk();
 	bool Convert(std::string cwarPath);
-} Cbnk;
-
-#endif /* Cbnk_hpp */
+};

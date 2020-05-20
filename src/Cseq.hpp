@@ -1,5 +1,4 @@
-#ifndef Cseq_hpp
-#define Cseq_hpp
+#pragma once
 
 #include <cstdint>
 #include <ios>
@@ -11,7 +10,7 @@ enum ArgType { None, Uint8, Int8, Uint16, Int16, Rnd, Var, VarLen };
 
 std::vector<int32_t> ReadArgs(uint8_t*& pos, ArgType argType);
 
-typedef struct
+struct CseqCmd
 {
 	SuffixType Suffix1 = _None;
 	SuffixType Suffix2 = _None;
@@ -24,15 +23,15 @@ typedef struct
 	ArgType Arg2 = None;
 
 	std::string Label;
-} CseqCmd;
+};
 
-typedef struct
+struct CseqLabl
 {
 	uint8_t* Offset;
 	std::string Label;
-} CseqLabl;
+};
 
-typedef struct Cseq
+struct Cseq
 {
 	std::string FileName;
 	std::streamoff Length;
@@ -41,6 +40,4 @@ typedef struct Cseq
 	Cseq(const char* fileName);
 	~Cseq();
 	bool Convert();
-} Cseq;
-
-#endif /* Cseq_hpp */
+};
