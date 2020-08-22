@@ -193,6 +193,12 @@ bool Csar::Extract()
 				file.Offset = Data + fileOffset + 8 + ReadFixLen(pos, 4);
 				file.Length = ReadFixLen(pos, 4);
 
+				if (file.Length == 0xFFFFFFFF)
+				{
+					file.Offset = nullptr;
+					file.Length = 0;
+				}
+
 				break;
 			}
 
@@ -467,6 +473,11 @@ bool Csar::Extract()
 		pos = cgrps[i].Offset;
 
 		cgrps[i].Id = ReadFixLen(pos, 4);
+
+		if (cgrps[i].Id == 0xFFFFFFFF)
+		{
+			continue;
+		}
 
 		if (!Common::Assert(pos, 0x1, ReadFixLen(pos, 4))) { return false; }
 
