@@ -5,12 +5,14 @@
 #include "Cseq.hpp"
 #include "Cwar.hpp"
 #include <cstdint>
+#include <filesystem>
 #include <fstream>
 #include <map>
 #include <string>
 #include <vector>
 
 using namespace std;
+using namespace filesystem;
 
 Csar::Csar(const char* fileName, bool p) : FileName(fileName), P(p)
 {
@@ -46,8 +48,8 @@ Csar::~Csar()
 
 bool Csar::Extract()
 {
-	Common::Mkdir(FileName.substr(0, FileName.length() - 6));
-	Common::Chdir(FileName.substr(0, FileName.length() - 6));
+	create_directory(FileName.substr(0, FileName.length() - 6));
+	current_path(FileName.substr(0, FileName.length() - 6));
 
 	uint8_t* pos = Data;
 
@@ -262,8 +264,8 @@ bool Csar::Extract()
 
 			pos -= 16;
 
-			Common::Mkdir(fileName);
-			Common::Chdir(fileName);
+			create_directory(fileName);
+			current_path(fileName);
 
 			ofstream ofs(string(fileName + ".cwar"), ofstream::binary);
 			ofs.write(reinterpret_cast<const char*>(pos), cwarLength);
@@ -276,7 +278,7 @@ bool Csar::Extract()
 				return false;
 			}
 
-			Common::Chdir("..");
+			current_path("..");
 		}
 		else
 		{
@@ -312,8 +314,8 @@ bool Csar::Extract()
 
 		cbnks[i].FileName = strgOffset != 0xFFFFFFFF ? strgs[ReadFixLen(pos, 4)].String : to_string(cbnks[i].Id);
 
-		Common::Mkdir(cbnks[i].FileName);
-		Common::Chdir(cbnks[i].FileName);
+		create_directory(cbnks[i].FileName);
+		current_path(cbnks[i].FileName);
 
 		if (files[cbnks[i].Id].Offset != nullptr)
 		{
@@ -335,7 +337,7 @@ bool Csar::Extract()
 			}
 		}
 
-		Common::Chdir("..");
+		current_path("..");
 	}
 
 	pos = Data + infoOffset + 8 + infoCseqOffset;
@@ -399,7 +401,7 @@ bool Csar::Extract()
 
 				pos -= 16;
 
-				Common::Chdir(cbnks[cbnk].FileName);
+				current_path(cbnks[cbnk].FileName);
 
 				ofstream ofs(string(cseqs[i].FileName + ".cseq"), ofstream::binary);
 				ofs.write(reinterpret_cast<const char*>(pos), cseqLength);
@@ -412,7 +414,7 @@ bool Csar::Extract()
 					return false;
 				}
 
-				Common::Chdir("..");
+				current_path("..");
 
 				cseqsFromCsar[id] = true;
 

@@ -6,14 +6,6 @@
 #include <string>
 #include <vector>
 
-#ifdef _WIN32
-#include <direct.h>
-#else
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#endif
-
 using namespace std;
 
 bool Common::ShowWarnings = false;
@@ -92,22 +84,4 @@ void Common::Dump(string fileName)
 	}
 
 	ofs.close();
-}
-
-void Common::Chdir(const string& filePath)
-{
-#ifdef _WIN32
-	_chdir(filePath.c_str());
-#else
-	chdir(filePath.c_str());
-#endif
-}
-
-void Common::Mkdir(const string& filePath)
-{
-#ifdef _WIN32
-	_mkdir(filePath.c_str());
-#else
-	mkdir(filePath.c_str(), S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
-#endif
 }

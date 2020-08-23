@@ -52,6 +52,4 @@ struct Common
 	static void Pop();
 	static void Analyse(std::string tag, uint32_t val);
 	static void Dump(std::string fileName);
-	static void Chdir(const std::string& filePath);
-	static void Mkdir(const std::string& filePath);
 };

@@ -4,12 +4,14 @@
 #include "Cseq.hpp"
 #include "Cwar.hpp"
 #include <cstdint>
+#include <filesystem>
 #include <fstream>
 #include <map>
 #include <string>
 #include <vector>
 
 using namespace std;
+using namespace filesystem;
 
 Cgrp::Cgrp(const char* fileName, map<int, Cwar*>* cwars, const map<int, bool>& cseqsFromCsar, bool p) : FileName(fileName), Cwars(cwars), CseqsFromCsar(cseqsFromCsar), P(p)
 {
@@ -161,8 +163,8 @@ bool Cgrp::Extract()
 
 				pos -= 16;
 
-				Common::Mkdir(to_string(files[i].Id));
-				Common::Chdir(to_string(files[i].Id));
+				create_directory(to_string(files[i].Id));
+				current_path(to_string(files[i].Id));
 
 				ofstream ofs(string(to_string(files[i].Id) + ".cwar"), ofstream::binary);
 				ofs.write(reinterpret_cast<const char*>(pos), cwarLength);
@@ -170,16 +172,16 @@ bool Cgrp::Extract()
 
 				(*Cwars)[files[i].Id] = new Cwar(string(to_string(files[i].Id) + ".cwar").c_str());
 
-				Common::Chdir("..");
+				current_path("..");
 
-				Common::Chdir(((*Cwars)[files[i].Id]->FileName.substr(0, (*Cwars)[files[i].Id]->FileName.length() - 5)));
+				current_path(((*Cwars)[files[i].Id]->FileName.substr(0, (*Cwars)[files[i].Id]->FileName.length() - 5)));
 
 				if (!(*Cwars)[files[i].Id]->Extract())
 				{
 					return false;
 				}
 
-				Common::Chdir("..");
+				current_path("..");
 
 				break;
 			}
@@ -192,8 +194,8 @@ bool Cgrp::Extract()
 
 				pos -= 16;
 
-				Common::Mkdir(to_string(files[i].Id));
-				Common::Chdir(to_string(files[i].Id));
+				create_directory(to_string(files[i].Id));
+				current_path(to_string(files[i].Id));
 
 				ofstream ofs(string(to_string(files[i].Id) + ".cbnk"), ofstream::binary);
 				ofs.write(reinterpret_cast<const char*>(pos), cbnkLength);
@@ -201,7 +203,7 @@ bool Cgrp::Extract()
 
 				Cbnks.push_back(new Cbnk(string(to_string(files[i].Id) + ".cbnk").c_str(), Cwars, P));
 
-				Common::Chdir("..");
+				current_path("..");
 
 				break;
 			}
@@ -241,14 +243,14 @@ bool Cgrp::Extract()
 
 	for (uint32_t i = 0; i < Cbnks.size(); ++i)
 	{
-		Common::Chdir(Cbnks[i]->FileName.substr(0, Cbnks[i]->FileName.length() - 5));
+		current_path(Cbnks[i]->FileName.substr(0, Cbnks[i]->FileName.length() - 5));
 
 		if (!Cbnks[i]->Convert(".."))
 		{
 			return false;
 		}
 
-		Common::Chdir("..");
+		current_path("..");
 	}
 
 	for (uint32_t i = 0; i < Cseqs.size(); ++i)
