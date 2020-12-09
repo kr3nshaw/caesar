@@ -196,12 +196,12 @@ bool Csar::Extract()
 			case 0x220C:
 			{
 				if (!Common::Assert(pos, 0xC, ReadFixLen(pos, 8))) { return false; }
-				uint32_t external = ReadFixLen(pos, 4);
+				Common::Analyse("0x220C 0x08", ReadFixLen(pos, 4));
 
 				file.Offset = Data + fileOffset + 8 + ReadFixLen(pos, 4);
 				file.Length = ReadFixLen(pos, 4);
 
-				if ((file.Offset > (Data + Length)) || (file.Length == 0xFFFFFFFF) || (external == 0))
+				if ((file.Offset >= (Data + Length)) || (file.Length == 0xFFFFFFFF))
 				{
 					file.Offset = nullptr;
 					file.Length = 0;
