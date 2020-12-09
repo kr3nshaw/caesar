@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Cwav.hpp"
+
 #include <cstdint>
 #include <ios>
 #include <string>

@@ -1,6 +1,7 @@
 #include "Cwar.hpp"
 #include "Common.hpp"
 #include "Cwav.hpp"
+
 #include <fstream>
 #include <string>
 #include <vector>
@@ -74,7 +75,7 @@ bool Cwar::Extract()
 	{
 		if (!Common::Assert(pos, 0x1F00, ReadFixLen(pos, 4))) { return false; }
 
-		CwarCwav cwav;
+		CwarCwav cwav{};
 		cwav.Offset = Data + fileOffset + 8 + ReadFixLen(pos, 4);
 		cwav.Length = ReadFixLen(pos, 4);
 

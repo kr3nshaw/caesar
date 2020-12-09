@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Cwar.hpp"
+
 #include <cstdint>
 #include <ios>
 #include <map>

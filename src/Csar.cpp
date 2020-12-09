@@ -4,6 +4,7 @@
 #include "Common.hpp"
 #include "Cseq.hpp"
 #include "Cwar.hpp"
+
 #include <cstdint>
 #include <filesystem>
 #include <fstream>
@@ -30,7 +31,7 @@ Csar::Csar(const char* fileName, bool p) : FileName(fileName), P(p)
 
 Csar::~Csar()
 {
-	for (auto cwar : Cwars)
+	for (auto& cwar : Cwars)
 	{
 		if (cwar.second)
 		{
@@ -58,9 +59,13 @@ bool Csar::Extract()
 	if (!Common::Assert(pos, 0x40, ReadFixLen(pos, 2))) { return false; }
 
 	uint32_t csarVersion = ReadFixLen(pos, 4);
-
-	// if (!Common::Assert<uint64_t>(pos, Length, ReadFixLen(pos, 4))) { return false; }
 	uint32_t length = ReadFixLen(pos, 4);
+
+	if (csarVersion != 0x02000000)
+	{
+		if (!Common::Assert<uint64_t>(pos, Length, length)) { return false; }
+	}
+
 	if (!Common::Assert(pos, 0x3, ReadFixLen(pos, 4))) { return false; }
 	if (!Common::Assert(pos, 0x2000, ReadFixLen(pos, 4))) { return false; }
 
@@ -191,12 +196,12 @@ bool Csar::Extract()
 			case 0x220C:
 			{
 				if (!Common::Assert(pos, 0xC, ReadFixLen(pos, 8))) { return false; }
-				Common::Analyse("0x220C 0x08", ReadFixLen(pos, 4));
+				uint32_t external = ReadFixLen(pos, 4);
 
 				file.Offset = Data + fileOffset + 8 + ReadFixLen(pos, 4);
 				file.Length = ReadFixLen(pos, 4);
 
-				if ((file.Length == 0xFFFFFFFF) || (file.Offset > (Data + Length)))
+				if ((file.Offset > (Data + Length)) || (file.Length == 0xFFFFFFFF) || (external == 0))
 				{
 					file.Offset = nullptr;
 					file.Length = 0;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Cwar.hpp"
+
 #include <ios>
 #include <cstdint>
 #include <string>
@@ -62,23 +63,6 @@ struct CbnkInst
 	std::vector<CbnkNote> Notes;
 
 	bool IsDrumKit = false;
-};
-
-struct BnkToSf2
-{
-	static double AttackTable[128];
-	static double HoldTable[128];
-	static double DecayTable[128];
-
-	static double ChangeLogBase(double x, double base);
-	static double ConvertTime(double time);
-	static double ConvertVolume(uint32_t volume);
-	static double ConvertPan(uint32_t pan);
-	static double ConvertAttack(uint8_t attack);
-	static double ConvertHold(uint8_t hold);
-	static double ConvertDecay(uint8_t decay, uint8_t sustain);
-	static double ConvertRelease(uint8_t release, uint8_t sustain);
-	static double ConvertSustain(uint8_t sustain);
 };
 
 struct Cbnk

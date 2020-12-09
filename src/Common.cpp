@@ -1,4 +1,5 @@
 #include "Common.hpp"
+
 #include <cstdint>
 #include <fstream>
 #include <iostream>

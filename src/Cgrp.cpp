@@ -3,6 +3,7 @@
 #include "Common.hpp"
 #include "Cseq.hpp"
 #include "Cwar.hpp"
+
 #include <cstdint>
 #include <filesystem>
 #include <fstream>
@@ -129,7 +130,7 @@ bool Cgrp::Extract()
 
 	for (uint32_t i = 0; i < fileCount; ++i)
 	{
-		CgrpFile file;
+		CgrpFile file{};
 		file.Id = ReadFixLen(pos, 4);
 		file.Offset = ReadFixLen(pos, 4) == 0x1F00 ? Data + fileOffset + 8 + ReadFixLen(pos, 4) : nullptr;
 		file.Length = ReadFixLen(pos, 4);

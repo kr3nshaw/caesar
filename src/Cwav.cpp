@@ -1,5 +1,6 @@
 #include "Cwav.hpp"
 #include "Common.hpp"
+
 #include <algorithm>
 #include <cmath>
 #include <fstream>
@@ -132,7 +133,7 @@ bool Cwav::Convert()
 					chans[i].DspCoeffs[j] = ReadFixLen(pos, 2, true, true);
 				}
 
-				DspContext dspCntx;
+				DspContext dspCntx{};
 				dspCntx.PredScal = ReadFixLen(pos, 1);
 
 				if (!Common::Assert(pos, 0x0, ReadFixLen(pos, 1))) { return false; }
@@ -140,7 +141,7 @@ bool Cwav::Convert()
 				dspCntx.SampHist1 = ReadFixLen(pos, 2, true, true);
 				dspCntx.SampHist2 = ReadFixLen(pos, 2, true, true);
 
-				DspContext dspLoopCntx;
+				DspContext dspLoopCntx{};
 				dspLoopCntx.PredScal = ReadFixLen(pos, 1);
 
 				if (!Common::Assert(pos, 0x0, ReadFixLen(pos, 1))) { return false; }
@@ -157,7 +158,7 @@ bool Cwav::Convert()
 				int16_t hist1 = chans[i].DspCntx.SampHist1;
 				int16_t hist2 = chans[i].DspCntx.SampHist2;
 
-				for (uint32_t j = 0; j < ceil(static_cast<double>(loopEnd) / 14.0f); ++j)
+				for (uint32_t j = 0; j < ceil(loopEnd / 14.0f); ++j)
 				{
 					predScal = ReadFixLen(pos, 1);
 					int32_t pred = (predScal >> 4) & 0xF;

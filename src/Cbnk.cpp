@@ -1,7 +1,9 @@
 #include "Cbnk.hpp"
 #include "Common.hpp"
 #include "Cwar.hpp"
+
 #include <sf2cute.hpp>
+
 #include <cmath>
 #include <fstream>
 #include <ios>
@@ -13,45 +15,45 @@
 using namespace sf2cute;
 using namespace std;
 
-double BnkToSf2::AttackTable[] = { 13122, 6546, 4356, 3261, 2604, 2163, 1851, 1617, 1434, 1287, 1167, 1068, 984, 912, 849, 795, 747, 702, 666, 630, 600, 570, 543, 519, 498, 477, 459, 441, 426, 411, 396, 384, 372, 360, 348, 336, 327, 318, 309, 300, 294, 285, 279, 270, 264, 258, 252, 246, 240, 234, 231, 225, 219, 216, 210, 207, 201, 198, 195, 192, 186, 183, 180, 177, 174, 171, 168, 165, 162, 159, 156, 153.5, 153, 150, 147, 144, 141.5, 141, 138, 135.5, 135, 132, 129.5, 129, 126, 123.5, 123, 120.5, 120, 117, 114.5, 114, 111.5, 111, 108.5, 108, 105.7, 105.35, 105, 102.5, 102, 99.5, 99, 96.7, 96.35, 96, 93.5, 93, 90, 87, 81, 75, 72, 69, 63, 60, 54, 48, 45, 39, 36, 30, 24, 21, 15, 12, 9, 6.1e-6 };
-double BnkToSf2::HoldTable[] = { 6e-6, 1, 2, 4, 6, 9, 12, 16, 20, 25, 30, 36, 42, 49, 56, 64, 72, 81, 90, 100, 110, 121, 132, 144, 156, 169, 182, 196, 210, 225, 240, 256, 272, 289, 306, 324, 342, 361, 380, 400, 420, 441, 462, 484, 506, 529, 552, 576, 600, 625, 650, 676, 702, 729, 756, 784, 812, 841, 870, 900, 930, 961, 992, 1024, 1056, 1089, 1122, 1156, 1190, 1225, 1260, 1296, 1332, 1369, 1406, 1444, 1482, 1521, 1560, 1600, 1640, 1681, 1722, 1764, 1806, 1849, 1892, 1936, 1980, 2025, 2070, 2116, 2162, 2209, 2256, 2304, 2352, 2401, 2450, 2500, 2550, 2601, 2652, 2704, 2756, 2809, 2862, 2916, 2970, 3025, 3080, 3136, 3192, 3249, 3306, 3364, 3422, 3481, 3540, 3600, 3660, 3721, 3782, 3844, 3906, 3969, 4032, 4096 };
-double BnkToSf2::DecayTable[] = { -0.00016, -0.00047, -0.00078, -0.00109, -0.00141, -0.00172, -0.00203, -0.00234, -0.00266, -0.00297, -0.00328, -0.00359, -0.00391, -0.00422, -0.00453, -0.00484, -0.00516, -0.00547, -0.00578, -0.00609, -0.00641, -0.00672, -0.00703, -0.00734, -0.00766, -0.00797, -0.00828, -0.00859, -0.00891, -0.00922, -0.00953, -0.00984, -0.01016, -0.01047, -0.01078, -0.01109, -0.01141, -0.01172, -0.01203, -0.01234, -0.01266, -0.01297, -0.01328, -0.01359, -0.01391, -0.01422, -0.01453, -0.01484, -0.01516, -0.01547, -0.01579, -0.016, -0.01622, -0.01644, -0.01667, -0.0169, -0.01714, -0.01739, -0.01765, -0.01791, -0.01818, -0.01846, -0.01875, -0.01905, -0.01935, -0.01967, -0.02, -0.02034, -0.02069, -0.02105, -0.02143, -0.02182, -0.02222, -0.02264, -0.02308, -0.02353, -0.024, -0.02449, -0.025, -0.02553, -0.02609, -0.02667, -0.02727, -0.02791, -0.02857, -0.02927, -0.03, -0.03077, -0.03158, -0.03243, -0.03333, -0.03429, -0.03529, -0.03636, -0.0375, -0.03871, -0.04, -0.04138, -0.04286, -0.04444, -0.04615, -0.048, -0.05, -0.05217, -0.05455, -0.05714, -0.06, -0.06316, -0.06667, -0.07059, -0.075, -0.08, -0.08571, -0.09231, -1, -0.10909, -0.12, -0.13333, -0.15, -0.17143, -2, -2.4, -3, -4, -6, -12, -24, -65535 };
+const double AttackTable[] = { 13122, 6546, 4356, 3261, 2604, 2163, 1851, 1617, 1434, 1287, 1167, 1068, 984, 912, 849, 795, 747, 702, 666, 630, 600, 570, 543, 519, 498, 477, 459, 441, 426, 411, 396, 384, 372, 360, 348, 336, 327, 318, 309, 300, 294, 285, 279, 270, 264, 258, 252, 246, 240, 234, 231, 225, 219, 216, 210, 207, 201, 198, 195, 192, 186, 183, 180, 177, 174, 171, 168, 165, 162, 159, 156, 153.5, 153, 150, 147, 144, 141.5, 141, 138, 135.5, 135, 132, 129.5, 129, 126, 123.5, 123, 120.5, 120, 117, 114.5, 114, 111.5, 111, 108.5, 108, 105.7, 105.35, 105, 102.5, 102, 99.5, 99, 96.7, 96.35, 96, 93.5, 93, 90, 87, 81, 75, 72, 69, 63, 60, 54, 48, 45, 39, 36, 30, 24, 21, 15, 12, 9, 6.1e-6 };
+const double HoldTable[] = { 6e-6, 1, 2, 4, 6, 9, 12, 16, 20, 25, 30, 36, 42, 49, 56, 64, 72, 81, 90, 100, 110, 121, 132, 144, 156, 169, 182, 196, 210, 225, 240, 256, 272, 289, 306, 324, 342, 361, 380, 400, 420, 441, 462, 484, 506, 529, 552, 576, 600, 625, 650, 676, 702, 729, 756, 784, 812, 841, 870, 900, 930, 961, 992, 1024, 1056, 1089, 1122, 1156, 1190, 1225, 1260, 1296, 1332, 1369, 1406, 1444, 1482, 1521, 1560, 1600, 1640, 1681, 1722, 1764, 1806, 1849, 1892, 1936, 1980, 2025, 2070, 2116, 2162, 2209, 2256, 2304, 2352, 2401, 2450, 2500, 2550, 2601, 2652, 2704, 2756, 2809, 2862, 2916, 2970, 3025, 3080, 3136, 3192, 3249, 3306, 3364, 3422, 3481, 3540, 3600, 3660, 3721, 3782, 3844, 3906, 3969, 4032, 4096 };
+const double DecayTable[] = { -0.00016, -0.00047, -0.00078, -0.00109, -0.00141, -0.00172, -0.00203, -0.00234, -0.00266, -0.00297, -0.00328, -0.00359, -0.00391, -0.00422, -0.00453, -0.00484, -0.00516, -0.00547, -0.00578, -0.00609, -0.00641, -0.00672, -0.00703, -0.00734, -0.00766, -0.00797, -0.00828, -0.00859, -0.00891, -0.00922, -0.00953, -0.00984, -0.01016, -0.01047, -0.01078, -0.01109, -0.01141, -0.01172, -0.01203, -0.01234, -0.01266, -0.01297, -0.01328, -0.01359, -0.01391, -0.01422, -0.01453, -0.01484, -0.01516, -0.01547, -0.01579, -0.016, -0.01622, -0.01644, -0.01667, -0.0169, -0.01714, -0.01739, -0.01765, -0.01791, -0.01818, -0.01846, -0.01875, -0.01905, -0.01935, -0.01967, -0.02, -0.02034, -0.02069, -0.02105, -0.02143, -0.02182, -0.02222, -0.02264, -0.02308, -0.02353, -0.024, -0.02449, -0.025, -0.02553, -0.02609, -0.02667, -0.02727, -0.02791, -0.02857, -0.02927, -0.03, -0.03077, -0.03158, -0.03243, -0.03333, -0.03429, -0.03529, -0.03636, -0.0375, -0.03871, -0.04, -0.04138, -0.04286, -0.04444, -0.04615, -0.048, -0.05, -0.05217, -0.05455, -0.05714, -0.06, -0.06316, -0.06667, -0.07059, -0.075, -0.08, -0.08571, -0.09231, -1, -0.10909, -0.12, -0.13333, -0.15, -0.17143, -2, -2.4, -3, -4, -6, -12, -24, -65535 };
 
-double BnkToSf2::ChangeLogBase(double x, double base)
+double ChangeLogBase(double x, double base)
 {
 	return log(x) / log(base);
 }
 
-double BnkToSf2::ConvertTime(double time)
+double ConvertTime(double time)
 {
 	double timeCents = 1200 * ChangeLogBase(time, 2);
 
 	return timeCents < -12000 ? -12000 : timeCents;
 }
 
-double BnkToSf2::ConvertVolume(uint32_t volume)
+double ConvertVolume(uint32_t volume)
 {
 	return 200 * abs(ChangeLogBase(pow((static_cast<double>(volume) / 127.0f), 2), 10));
 }
 
-double BnkToSf2::ConvertPan(uint32_t pan)
+double ConvertPan(uint32_t pan)
 {
 	double sf2Pan = (static_cast<double>(pan) - 64.0f) * (500.0f / 63.0f);
 
 	return sf2Pan < -500 ? -500 : sf2Pan;
 }
 
-double BnkToSf2::ConvertAttack(uint8_t attack)
+double ConvertAttack(uint8_t attack)
 {
-	return BnkToSf2::ConvertTime(BnkToSf2::AttackTable[attack] / 1000);
+	return ConvertTime(AttackTable[attack] / 1000);
 }
 
-double BnkToSf2::ConvertHold(uint8_t hold)
+double ConvertHold(uint8_t hold)
 {
-	return BnkToSf2::ConvertTime(BnkToSf2::HoldTable[hold] / 1000);
+	return ConvertTime(HoldTable[hold] / 1000);
 }
 
-double BnkToSf2::ConvertDecay(uint8_t decay, uint8_t sustain)
+double ConvertDecay(uint8_t decay, uint8_t sustain)
 {
 	double sustainVolume = 20 * ChangeLogBase(pow((static_cast<double>(sustain) / 127.0f), 2), 10);
 
@@ -63,16 +65,16 @@ double BnkToSf2::ConvertDecay(uint8_t decay, uint8_t sustain)
 	{
 		if (sustain == 0)
 		{
-			return BnkToSf2::ConvertTime(-90.25 / BnkToSf2::DecayTable[decay] / 1000);
+			return ConvertTime(-90.25 / DecayTable[decay] / 1000);
 		}
 		else
 		{
-			return BnkToSf2::ConvertTime(sustainVolume / BnkToSf2::DecayTable[decay] / 1000);
+			return ConvertTime(sustainVolume / DecayTable[decay] / 1000);
 		}
 	}
 }
 
-double BnkToSf2::ConvertRelease(uint8_t release, uint8_t sustain)
+double ConvertRelease(uint8_t release, uint8_t sustain)
 {
 	double sustainVolume = 20 * ChangeLogBase(pow((static_cast<double>(sustain) / 127.0f), 2), 10);
 
@@ -84,16 +86,16 @@ double BnkToSf2::ConvertRelease(uint8_t release, uint8_t sustain)
 	{
 		if (sustain == 0)
 		{
-			return BnkToSf2::ConvertTime(-90.25 / BnkToSf2::DecayTable[release] / 1000);
+			return ConvertTime(-90.25 / DecayTable[release] / 1000);
 		}
 		else
 		{
-			return BnkToSf2::ConvertTime((-90.25 - sustainVolume) / BnkToSf2::DecayTable[release] / 1000);
+			return ConvertTime((-90.25 - sustainVolume) / DecayTable[release] / 1000);
 		}
 	}
 }
 
-double BnkToSf2::ConvertSustain(uint8_t sustain)
+double ConvertSustain(uint8_t sustain)
 {
 	if (sustain == 0)
 	{
@@ -244,7 +246,7 @@ bool Cbnk::Convert(string cwarPath)
 
 					for (uint32_t j = 0; j < sampleLoops; ++j)
 					{
-						WaveSmpl smpl;
+						WaveSmpl smpl{};
 						smpl.CuePointId = ReadFixLen(pos, 4);
 						smpl.Type = ReadFixLen(pos, 4);
 						smpl.Start = ReadFixLen(pos, 4);
@@ -319,7 +321,7 @@ bool Cbnk::Convert(string cwarPath)
 			{
 				insts[i].NoteCount = 1;
 
-				CbnkNote note;
+				CbnkNote note{};
 				note.StartNote = 0;
 				note.EndNote = 127;
 
@@ -334,7 +336,7 @@ bool Cbnk::Convert(string cwarPath)
 
 				for (uint32_t j = 0; j < insts[i].NoteCount; ++j)
 				{
-					CbnkNote note;
+					CbnkNote note{};
 					note.StartNote = j == 0 ? 0 : insts[i].Notes[j - 1].EndNote + 1;
 					note.EndNote = ReadFixLen(pos, 1);
 
@@ -357,7 +359,7 @@ bool Cbnk::Convert(string cwarPath)
 
 				for (uint32_t j = 0; j < insts[i].NoteCount; ++j)
 				{
-					CbnkNote note;
+					CbnkNote note{};
 					note.StartNote = j;
 					note.EndNote = j;
 
@@ -510,13 +512,13 @@ bool Cbnk::Convert(string cwarPath)
 
 					SFGeneratorItem keyRange(SFGenerator::kKeyRange, RangesType(insts[i].Notes[j].StartNote, insts[i].Notes[j].EndNote));
 					SFGeneratorItem overridingRootKey(SFGenerator::kOverridingRootKey, insts[i].Notes[j].Cwav->Key);
-					SFGeneratorItem initialAttenuation(SFGenerator::kInitialAttenuation, BnkToSf2::ConvertVolume(insts[i].Notes[j].Volume));
-					SFGeneratorItem pan(SFGenerator::kPan, BnkToSf2::ConvertPan(insts[i].Notes[j].Pan));
-					SFGeneratorItem attackVolEnv(SFGenerator::kAttackVolEnv, BnkToSf2::ConvertAttack(insts[i].Notes[j].Attack));
-					SFGeneratorItem holdVolEnv(SFGenerator::kHoldVolEnv, BnkToSf2::ConvertHold(insts[i].Notes[j].Hold));
-					SFGeneratorItem decayVolEnv(SFGenerator::kDecayVolEnv, BnkToSf2::ConvertDecay(insts[i].Notes[j].Decay, insts[i].Notes[j].Sustain));
-					SFGeneratorItem releaseVolEnv(SFGenerator::kReleaseVolEnv, BnkToSf2::ConvertRelease(insts[i].Notes[j].Release, insts[i].Notes[j].Sustain));
-					SFGeneratorItem sustainVolEnv(SFGenerator::kSustainVolEnv, BnkToSf2::ConvertSustain(insts[i].Notes[j].Sustain));
+					SFGeneratorItem initialAttenuation(SFGenerator::kInitialAttenuation, ConvertVolume(insts[i].Notes[j].Volume));
+					SFGeneratorItem pan(SFGenerator::kPan, ConvertPan(insts[i].Notes[j].Pan));
+					SFGeneratorItem attackVolEnv(SFGenerator::kAttackVolEnv, ConvertAttack(insts[i].Notes[j].Attack));
+					SFGeneratorItem holdVolEnv(SFGenerator::kHoldVolEnv, ConvertHold(insts[i].Notes[j].Hold));
+					SFGeneratorItem decayVolEnv(SFGenerator::kDecayVolEnv, ConvertDecay(insts[i].Notes[j].Decay, insts[i].Notes[j].Sustain));
+					SFGeneratorItem releaseVolEnv(SFGenerator::kReleaseVolEnv, ConvertRelease(insts[i].Notes[j].Release, insts[i].Notes[j].Sustain));
+					SFGeneratorItem sustainVolEnv(SFGenerator::kSustainVolEnv, ConvertSustain(insts[i].Notes[j].Sustain));
 					SFGeneratorItem sampleModes(SFGenerator::kSampleModes, it->second->Cwavs[insts[i].Notes[j].Cwav->Id]->SampleMode);
 
 					if (insts[i].Notes[j].Cwav->ChanCount == 1)

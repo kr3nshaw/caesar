@@ -1,7 +1,9 @@
 #include "Cseq.hpp"
 #include "Common.hpp"
+
 #include "libsmfc/libsmfc.h"
 #include "libsmfc/libsmfcx.h"
+
 #include <cstdint>
 #include <fstream>
 #include <iterator>
@@ -232,40 +234,38 @@ bool Cseq::Convert()
 		}
 		else if ((statusByte >= 0xB0) && (statusByte <= 0xDF))
 		{
-			if ((statusByte != 0xB7) && (statusByte != 0xB8) && (statusByte != 0xB9) && (statusByte != 0xBA) && (statusByte != 0xBB) && (statusByte != 0xBC) && (statusByte != 0xDE))
+			// if ((statusByte != 0xB7) && (statusByte != 0xB8) && (statusByte != 0xB9) && (statusByte != 0xBA) && (statusByte != 0xBB) && (statusByte != 0xBC) && (statusByte != 0xDE))
+			if ((statusByte == 0xB1) || (statusByte == 0xC3) || (statusByte == 0xC4) || (statusByte == 0xD0) || (statusByte == 0xD1) || (statusByte == 0xD2) || (statusByte == 0xD3))
 			{
-				if ((statusByte == 0xB1) || (statusByte == 0xC3) || (statusByte == 0xC4) || (statusByte == 0xD0) || (statusByte == 0xD1) || (statusByte == 0xD2) || (statusByte == 0xD3))
+				if (cmd.Arg1 == None)
 				{
-					if (cmd.Arg1 == None)
-					{
-						cmd.Arg1 = Int8;
-					}
-
-					vector<int32_t> args = ReadArgs(pos, cmd.Arg1);
-
-					cmd.Args.insert(cmd.Args.end(), args.begin(), args.end());
+					cmd.Arg1 = Int8;
 				}
-				else if ((statusByte == 0xB2) || (statusByte == 0xBF) || (statusByte = 0xC7) || (statusByte == 0xC8) || (statusByte == 0xC9) || (statusByte == 0xCE) || (statusByte == 0xDF))
+
+				vector<int32_t> args = ReadArgs(pos, cmd.Arg1);
+
+				cmd.Args.insert(cmd.Args.end(), args.begin(), args.end());
+			}
+			else if ((statusByte == 0xB2) || (statusByte == 0xBF) || (statusByte == 0xC7) || (statusByte == 0xC8) || (statusByte == 0xC9) || (statusByte == 0xCE) || (statusByte == 0xDF))
+			{
+				cmd.Args.push_back(ReadFixLen(pos, 1));
+			}
+			else if (statusByte == 0xCC)
+			{
+				cmd.Args.push_back(ReadFixLen(pos, 1));
+
+				if (cmd.Args.back() > 2)
 				{
-					cmd.Args.push_back(ReadFixLen(pos, 1));
-				}
-				else if (statusByte == 0xCC)
-				{
-					cmd.Args.push_back(ReadFixLen(pos, 1));
+					Common::Error(pos - 1, "A valid modulation type", cmd.Args.back());
 
-					if (cmd.Args.back() > 2)
-					{
-						Common::Error(pos - 1, "A valid modulation type", cmd.Args.back());
-
-						return false;
-					}
+					return false;
 				}
-				else if (statusByte == 0xD6)
-				{
-					vector<int32_t> args = ReadArgs(pos, Var);
+			}
+			else if (statusByte == 0xD6)
+			{
+				vector<int32_t> args = ReadArgs(pos, Var);
 
-					cmd.Args.insert(cmd.Args.end(), args.begin(), args.end());
-				}
+				cmd.Args.insert(cmd.Args.end(), args.begin(), args.end());
 			}
 			else
 			{
