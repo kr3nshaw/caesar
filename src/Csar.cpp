@@ -59,7 +59,8 @@ bool Csar::Extract()
 
 	uint32_t csarVersion = ReadFixLen(pos, 4);
 
-	if (!Common::Assert<uint64_t>(pos, Length, ReadFixLen(pos, 4))) { return false; }
+	// if (!Common::Assert<uint64_t>(pos, Length, ReadFixLen(pos, 4))) { return false; }
+	uint32_t length = ReadFixLen(pos, 4);
 	if (!Common::Assert(pos, 0x3, ReadFixLen(pos, 4))) { return false; }
 	if (!Common::Assert(pos, 0x2000, ReadFixLen(pos, 4))) { return false; }
 
@@ -195,7 +196,7 @@ bool Csar::Extract()
 				file.Offset = Data + fileOffset + 8 + ReadFixLen(pos, 4);
 				file.Length = ReadFixLen(pos, 4);
 
-				if (file.Length == 0xFFFFFFFF)
+				if ((file.Length == 0xFFFFFFFF) || (file.Offset > (Data + Length)))
 				{
 					file.Offset = nullptr;
 					file.Length = 0;
@@ -391,32 +392,35 @@ bool Csar::Extract()
 
 			case 0x2203:
 			{
-				pos += cbnkOffset;
-
-				uint32_t cbnk = ReadFixLen(pos, 2);
-
-				pos = files[id].Offset + 12;
-
-				uint32_t cseqLength = ReadFixLen(pos, 4);
-
-				pos -= 16;
-
-				current_path(cbnks[cbnk].FileName);
-
-				ofstream ofs(string(cseqs[i].FileName + ".cseq"), ofstream::binary);
-				ofs.write(reinterpret_cast<const char*>(pos), cseqLength);
-				ofs.close();
-
-				Cseq cseq(string(cseqs[i].FileName + ".cseq").c_str());
-
-				if (!cseq.Convert())
+				if (files[id].Offset != nullptr)
 				{
-					return false;
+					pos += cbnkOffset;
+
+					uint32_t cbnk = ReadFixLen(pos, 2);
+
+					pos = files[id].Offset + 12;
+
+					uint32_t cseqLength = ReadFixLen(pos, 4);
+
+					pos -= 16;
+
+					current_path(cbnks[cbnk].FileName);
+
+					ofstream ofs(string(cseqs[i].FileName + ".cseq"), ofstream::binary);
+					ofs.write(reinterpret_cast<const char*>(pos), cseqLength);
+					ofs.close();
+
+					Cseq cseq(string(cseqs[i].FileName + ".cseq").c_str());
+
+					if (!cseq.Convert())
+					{
+						return false;
+					}
+
+					current_path("..");
+
+					cseqsFromCsar[id] = true;
 				}
-
-				current_path("..");
-
-				cseqsFromCsar[id] = true;
 
 				break;
 			}
