@@ -511,7 +511,7 @@ bool Cbnk::Convert(string cwarPath)
 					}
 
 					SFGeneratorItem keyRange(SFGenerator::kKeyRange, RangesType(insts[i].Notes[j].StartNote, insts[i].Notes[j].EndNote));
-					SFGeneratorItem overridingRootKey(SFGenerator::kOverridingRootKey, insts[i].Notes[j].Cwav->Key);
+					SFGeneratorItem overridingRootKey(SFGenerator::kOverridingRootKey, insts[i].Notes[j].RootKey);
 					SFGeneratorItem initialAttenuation(SFGenerator::kInitialAttenuation, ConvertVolume(insts[i].Notes[j].Volume));
 					SFGeneratorItem pan(SFGenerator::kPan, ConvertPan(insts[i].Notes[j].Pan));
 					SFGeneratorItem attackVolEnv(SFGenerator::kAttackVolEnv, ConvertAttack(insts[i].Notes[j].Attack));
