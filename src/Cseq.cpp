@@ -66,10 +66,7 @@ Cseq::~Cseq()
 {
 	Common::Pop();
 
-	if (Data)
-	{
-		delete[] Data;
-	}
+	delete[] Data;
 }
 
 bool Cseq::Convert()
@@ -886,7 +883,7 @@ bool Cseq::Convert()
 		smfSetTimebase(smf, 48);
 	}
 
-	smfWriteFile(smf, FileName.substr(0, FileName.size() - 4).append("mid").c_str());
+	smfWriteFile(smf, FileName.substr(0, FileName.length() - 5).append("mid").c_str());
 	smfDelete(smf);
 
 	return true;

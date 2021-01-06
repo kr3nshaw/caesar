@@ -26,18 +26,12 @@ Cwar::~Cwar()
 {
 	for (auto cwav : Cwavs)
 	{
-		if (cwav)
-		{
-			delete cwav;
-		}
+		delete cwav;
 	}
 
 	Common::Pop();
 
-	if (Data)
-	{
-		delete[] Data;
-	}
+	delete[] Data;
 }
 
 bool Cwar::Extract()
@@ -68,7 +62,7 @@ bool Cwar::Extract()
 	if (!Common::Assert<uint32_t>(pos, infoLength, ReadFixLen(pos, 4))) { return false; }
 
 	uint32_t cwavCount = ReadFixLen(pos, 4);
-	
+
 	vector<CwarCwav> cwavs;
 
 	for (uint32_t i = 0; i < cwavCount; ++i)
@@ -89,11 +83,11 @@ bool Cwar::Extract()
 
 	for (uint32_t i = 0; i < cwavCount; ++i)
 	{
-		ofstream ofs(string(to_string(i) + ".cwav"), ofstream::binary);
+		ofstream ofs(string(to_string(i) + ".bcwav"), ofstream::binary);
 		ofs.write(reinterpret_cast<const char*>(cwavs[i].Offset), cwavs[i].Length);
 		ofs.close();
 
-		Cwavs.push_back(new Cwav(string(to_string(i) + ".cwav").c_str()));
+		Cwavs.push_back(new Cwav(string(to_string(i) + ".bcwav").c_str()));
 
 		if (!Cwavs[i]->Convert())
 		{

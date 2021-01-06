@@ -28,10 +28,7 @@ Cwav::~Cwav()
 {
 	Common::Pop();
 
-	if (Data)
-	{
-		delete[] Data;
-	}
+	delete[] Data;
 }
 
 bool Cwav::Convert()
@@ -230,7 +227,7 @@ bool Cwav::Convert()
 		length += 8 + smplLength;
 	}
 
-	ofstream ofs(FileName.substr(0, FileName.size() - 4).append("wav"), ofstream::binary);
+	ofstream ofs(FileName.substr(0, FileName.length() - 5).append("wav"), ofstream::binary);
 
 	ofs.write("RIFF", 4);
 	ofs.write(reinterpret_cast<const char*>(&length), 4);

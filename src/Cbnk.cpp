@@ -125,10 +125,7 @@ Cbnk::~Cbnk()
 {
 	Common::Pop();
 
-	if (Data)
-	{
-		delete[] Data;
-	}
+	delete[] Data;
 }
 
 bool Cbnk::Convert(string cwarPath)
@@ -185,7 +182,7 @@ bool Cbnk::Convert(string cwarPath)
 
 		if (cwav.Id < 0xF000)
 		{
-			ifstream ifs(cwarPath + "/" + it->second->FileName.substr(0, it->second->FileName.length() - 5) + "/" + to_string(cwav.Id) + ".wav", ios::binary | ios::ate);
+			ifstream ifs(cwarPath + "/" + it->second->FileName.substr(0, it->second->FileName.length() - 6) + "/" + to_string(cwav.Id) + ".wav", ios::binary | ios::ate);
 
 			streamoff cwavLength = ifs.tellg();
 			uint8_t* cwavData = new uint8_t[cwavLength];
@@ -273,10 +270,7 @@ bool Cbnk::Convert(string cwarPath)
 
 			Common::Pop();
 
-			if (cwavData)
-			{
-				delete[] cwavData;
-			}
+			delete[] cwavData;
 		}
 
 		cwavs.push_back(cwav);
@@ -456,7 +450,7 @@ bool Cbnk::Convert(string cwarPath)
 
 	SoundFont sf2;
 	sf2.set_sound_engine("EMU8000");
-	sf2.set_bank_name(FileName.substr(0, FileName.length() - 5));
+	sf2.set_bank_name(FileName.substr(0, FileName.length() - 6));
 	sf2.set_rom_name("ROM");
 	sf2.set_software("Caesar");
 
@@ -543,7 +537,6 @@ bool Cbnk::Convert(string cwarPath)
 							instrumentZones.push_back(SFInstrumentZone(leftSamples[insts[i].Notes[j].Cwav->Id], vector<SFGeneratorItem> { keyRange, overridingRootKey, initialAttenuation, left, attackVolEnv, holdVolEnv, decayVolEnv, releaseVolEnv, sustainVolEnv, sampleModes }, vector<SFModulatorItem> { }));
 							instrumentZones.push_back(SFInstrumentZone(rightSamples[insts[i].Notes[j].Cwav->Id], vector<SFGeneratorItem> { keyRange, overridingRootKey, initialAttenuation, right, attackVolEnv, holdVolEnv, decayVolEnv, releaseVolEnv, sustainVolEnv, sampleModes }, vector<SFModulatorItem> { }));
 						}
-						
 					}
 				}
 			}
@@ -571,7 +564,7 @@ bool Cbnk::Convert(string cwarPath)
 		}
 	}
 
-	ofstream ofs(FileName.substr(0, FileName.length() - 4).append("sf2"), ios::binary);
+	ofstream ofs(FileName.substr(0, FileName.length() - 5).append("sf2"), ios::binary);
 	sf2.Write(ofs);
 	ofs.close();
 

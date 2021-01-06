@@ -33,18 +33,12 @@ Csar::~Csar()
 {
 	for (auto& cwar : Cwars)
 	{
-		if (cwar.second)
-		{
-			delete cwar.second;
-		}
+		delete cwar.second;
 	}
 
 	Common::Pop();
 
-	if (Data)
-	{
-		delete[] Data;
-	}
+	delete[] Data;
 }
 
 bool Csar::Extract()
@@ -257,7 +251,7 @@ bool Csar::Extract()
 		uint32_t id = ReadFixLen(pos, 4);
 
 		Common::Analyse("Cwar 0x04", ReadFixLen(pos, 4));
-		
+
 		uint32_t hasFileName = ReadFixLen(pos, 4);
 
 		string fileName = hasFileName ? strgs[ReadFixLen(pos, 4)].String : to_string(id);
@@ -273,11 +267,11 @@ bool Csar::Extract()
 			create_directory(fileName);
 			current_path(fileName);
 
-			ofstream ofs(string(fileName + ".cwar"), ofstream::binary);
+			ofstream ofs(string(fileName + ".bcwar"), ofstream::binary);
 			ofs.write(reinterpret_cast<const char*>(pos), cwarLength);
 			ofs.close();
 
-			Cwars[id] = new Cwar(string(fileName + ".cwar").c_str());
+			Cwars[id] = new Cwar(string(fileName + ".bcwar").c_str());
 
 			if (!Cwars[id]->Extract())
 			{
@@ -331,11 +325,11 @@ bool Csar::Extract()
 
 			pos -= 16;
 
-			ofstream ofs(string(cbnks[i].FileName + ".cbnk"), ofstream::binary);
+			ofstream ofs(string(cbnks[i].FileName + ".bcbnk"), ofstream::binary);
 			ofs.write(reinterpret_cast<const char*>(pos), cbnkLength);
 			ofs.close();
 
-			Cbnk cbnk(string(cbnks[i].FileName + ".cbnk").c_str(), &Cwars, P);
+			Cbnk cbnk(string(cbnks[i].FileName + ".bcbnk").c_str(), &Cwars, P);
 
 			if (!cbnk.Convert(".."))
 			{
@@ -411,11 +405,11 @@ bool Csar::Extract()
 
 					current_path(cbnks[cbnk].FileName);
 
-					ofstream ofs(string(cseqs[i].FileName + ".cseq"), ofstream::binary);
+					ofstream ofs(string(cseqs[i].FileName + ".bcseq"), ofstream::binary);
 					ofs.write(reinterpret_cast<const char*>(pos), cseqLength);
 					ofs.close();
 
-					Cseq cseq(string(cseqs[i].FileName + ".cseq").c_str());
+					Cseq cseq(string(cseqs[i].FileName + ".bcseq").c_str());
 
 					if (!cseq.Convert())
 					{
@@ -502,11 +496,11 @@ bool Csar::Extract()
 
 			pos -= 16;
 
-			ofstream ofs(string(cgrps[i].FileName + ".cgrp"), ofstream::binary);
+			ofstream ofs(string(cgrps[i].FileName + ".bcgrp"), ofstream::binary);
 			ofs.write(reinterpret_cast<const char*>(pos), cgrpLength);
 			ofs.close();
 
-			Cgrp cgrp(string(cgrps[i].FileName + ".cgrp").c_str(), &Cwars, cseqsFromCsar, P);
+			Cgrp cgrp(string(cgrps[i].FileName + ".bcgrp").c_str(), &Cwars, cseqsFromCsar, P);
 
 			if (!cgrp.Extract())
 			{

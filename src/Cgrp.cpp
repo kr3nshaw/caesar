@@ -32,26 +32,17 @@ Cgrp::~Cgrp()
 {
 	for (auto cseq : Cseqs)
 	{
-		if (cseq)
-		{
-			delete cseq;
-		}
+		delete cseq;
 	}
 
 	for (auto cbnk : Cbnks)
 	{
-		if (cbnk)
-		{
-			delete cbnk;
-		}
+		delete cbnk;
 	}
 
 	Common::Pop();
 
-	if (Data)
-	{
-		delete[] Data;
-	}
+	delete[] Data;
 }
 
 bool Cgrp::Extract()
@@ -167,15 +158,15 @@ bool Cgrp::Extract()
 				create_directory(to_string(files[i].Id));
 				current_path(to_string(files[i].Id));
 
-				ofstream ofs(string(to_string(files[i].Id) + ".cwar"), ofstream::binary);
+				ofstream ofs(string(to_string(files[i].Id) + ".bcwar"), ofstream::binary);
 				ofs.write(reinterpret_cast<const char*>(pos), cwarLength);
 				ofs.close();
 
-				(*Cwars)[files[i].Id] = new Cwar(string(to_string(files[i].Id) + ".cwar").c_str());
+				(*Cwars)[files[i].Id] = new Cwar(string(to_string(files[i].Id) + ".bcwar").c_str());
 
 				current_path("..");
 
-				current_path(((*Cwars)[files[i].Id]->FileName.substr(0, (*Cwars)[files[i].Id]->FileName.length() - 5)));
+				current_path(((*Cwars)[files[i].Id]->FileName.substr(0, (*Cwars)[files[i].Id]->FileName.length() - 6)));
 
 				if (!(*Cwars)[files[i].Id]->Extract())
 				{
@@ -198,11 +189,11 @@ bool Cgrp::Extract()
 				create_directory(to_string(files[i].Id));
 				current_path(to_string(files[i].Id));
 
-				ofstream ofs(string(to_string(files[i].Id) + ".cbnk"), ofstream::binary);
+				ofstream ofs(string(to_string(files[i].Id) + ".bcbnk"), ofstream::binary);
 				ofs.write(reinterpret_cast<const char*>(pos), cbnkLength);
 				ofs.close();
 
-				Cbnks.push_back(new Cbnk(string(to_string(files[i].Id) + ".cbnk").c_str(), Cwars, P));
+				Cbnks.push_back(new Cbnk(string(to_string(files[i].Id) + ".bcbnk").c_str(), Cwars, P));
 
 				current_path("..");
 
@@ -217,11 +208,11 @@ bool Cgrp::Extract()
 
 				pos -= 16;
 
-				ofstream ofs(string(to_string(files[i].Id) + ".cseq"), ofstream::binary);
+				ofstream ofs(string(to_string(files[i].Id) + ".bcseq"), ofstream::binary);
 				ofs.write(reinterpret_cast<const char*>(pos), cseqLength);
 				ofs.close();
 
-				Cseqs.push_back(new Cseq(string(to_string(files[i].Id) + ".cseq").c_str()));
+				Cseqs.push_back(new Cseq(string(to_string(files[i].Id) + ".bcseq").c_str()));
 
 				break;
 			}
@@ -244,7 +235,7 @@ bool Cgrp::Extract()
 
 	for (uint32_t i = 0; i < Cbnks.size(); ++i)
 	{
-		current_path(Cbnks[i]->FileName.substr(0, Cbnks[i]->FileName.length() - 5));
+		current_path(Cbnks[i]->FileName.substr(0, Cbnks[i]->FileName.length() - 6));
 
 		if (!Cbnks[i]->Convert(".."))
 		{
