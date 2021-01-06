@@ -254,7 +254,7 @@ bool Csar::Extract()
 
 		uint32_t hasFileName = ReadFixLen(pos, 4);
 
-		string fileName = hasFileName ? strgs[ReadFixLen(pos, 4)].String : to_string(id);
+		string fileName = hasFileName  && (strgOffset != 0xFFFFFFFF) ? strgs[ReadFixLen(pos, 4)].String : to_string(id);
 
 		if (files[id].Offset != nullptr)
 		{
