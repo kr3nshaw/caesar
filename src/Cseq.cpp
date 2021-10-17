@@ -144,7 +144,7 @@ bool Cseq::Convert()
 
 		if (statusByte == 0xA2)
 		{
-			cmd.Suffix3 = _If;
+			cmd.Suffix3 = SuffixType::_If;
 
 			statusByte = ReadFixLen(pos, 1);
 		}
